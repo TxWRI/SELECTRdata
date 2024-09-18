@@ -8,6 +8,7 @@ Authors@R:
 Description: Provides convienence functions for downloading raster and tabular
     data used by Spatially Explicit Load Enrichment Calculation Tool ('SELECT')
     to characterize landscape based pollutant sources (<https://tx.select.tamu.edu>).
+    Methodology based on Teague et al. (2009) <doi:10.13031/2013.27788>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
