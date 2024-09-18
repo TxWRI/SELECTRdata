@@ -1,0 +1,23 @@
+Package: SELECTRdata
+Type: Package
+Title: Download and Format Spatially Explicit Load Enrichment Calculation Tool ('SELECT') Data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Michael", family = "Schramm", email = "mpschramm@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-1876-6592"))
+Description: Provides convienence functions for downloading raster and tabular
+    data used by Spatially Explicit Load Enrichment Calculation Tool ('SELECT')
+    to characterize landscape based pollutant sources (<https://tx.select.tamu.edu>).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+  arcgislayers,
+  cli,
+  curl,
+  gdalraster,
+  rlang,
+  rnassqs,
+  sf,
+  terra
+RoxygenNote: 7.3.1
