@@ -37,18 +37,16 @@ You can install the development version of SELECTRdata like so:
 ## MRLC National Land Cover Dataset
 
 ``` r
-library(conflicted)
-#> Warning: package 'conflicted' was built under R version 4.3.3
 library(SELECTRdata)
 library(terra)
 #> Warning: package 'terra' was built under R version 4.3.3
 #> terra 1.7.78
 
 ## we need a template file, this is the thomsoncreek watershed in Texas
-dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTR")
+dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
 dem <- terra::rast(dem)
 
-gpkg <- system.file("extdata", "thompsoncreek.gpkg", package = "SELECTR")
+gpkg <- system.file("extdata", "thompsoncreek.gpkg", package = "SELECTRdata")
 wbd <- terra::vect(gpkg, layer = "wbd")
 
 dem <- terra::mask(dem, wbd,
@@ -66,6 +64,7 @@ nlcd <- SELECTRdata::download_nlcd(template = dem,
                                    progress = 1)
 #> |---------|---------|---------|---------|=========================================                                          
 plot(nlcd)
+plot(wbd, add = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
