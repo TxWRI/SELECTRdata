@@ -8,7 +8,16 @@
 #'
 #' @return A terra SpatVector object.
 #' @export
-
+#' @examples
+#' # example code
+#' \donttest{
+#' ## This example requires an internet connection to run
+#' dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+#' dem <- terra::rast(dem)
+#'
+#' counties <- download_counties(template = dem)
+#' }
+#'
 download_counties <- function(template,
                               output = tempfile(fileext = ".gpkg")) {
 

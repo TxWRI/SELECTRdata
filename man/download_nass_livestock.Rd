@@ -38,7 +38,7 @@ This function requires an API key to make requests on the USDA NASS QuickStats s
 }
 }
 \examples{
-\dontshow{if (!identical(Sys.getenv("NASSQS_TOKEN"), "")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (has_nass_token()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 download_nass_livestock(state_alpha = "TX", county_name = "Brazos", year = "2022")
 \dontshow{\}) # examplesIf}
 }

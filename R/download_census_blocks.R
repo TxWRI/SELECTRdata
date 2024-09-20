@@ -9,6 +9,16 @@
 #'
 #' @return A terra SpatVector object.
 #' @export
+#' @examples
+#' # example code
+#' \donttest{
+#' ## This example requires an internet connection to run
+#' dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+#' dem <- terra::rast(dem)
+#'
+#' blocks <- download_census_blocks(template = dem)
+#' }
+#'
 download_census_blocks <- function(template,
                                    year = "2020",
                                    output = tempfile(fileext = ".gpkg")) {

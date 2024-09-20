@@ -19,7 +19,7 @@
 #'
 #' @return A dataframe.
 #' @export
-#' @examplesIf !identical(Sys.getenv("NASSQS_TOKEN"), "")
+#' @examplesIf has_nass_token()
 #' download_nass_livestock(state_alpha = "TX", county_name = "Brazos", year = "2022")
 download_nass_livestock <- function(state_alpha = NULL,
                                     county_name = NULL,
@@ -51,7 +51,6 @@ download_nass_livestock <- function(state_alpha = NULL,
 #' @export
 #' @importFrom rnassqs nassqs
 #' @keywords internal
-#'
 download_nass_census <- function(group_desc = "LIVESTOCK",
                                  commodity_desc = "CATTLE",
                                  statisticcat_desc = "INVENTORY",
