@@ -24,3 +24,14 @@ A terra SpatVector object.
 Downloads U.S. Census block boundaries and associated information for
 blocks within the spatial extent of the template SpatRaster.
 }
+\examples{
+# example code
+\donttest{
+## This example requires an internet connection to run
+dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+dem <- terra::rast(dem)
+
+blocks <- download_census_blocks(template = dem)
+}
+
+}

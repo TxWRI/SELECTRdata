@@ -11,6 +11,15 @@
 #' @importFrom arcgislayers arc_open arc_select get_layer
 #' @importFrom sf st_bbox
 #' @importFrom terra vect
+#' @examples
+#' \donttest{
+#' ## This example requires an internet connection to run
+#' dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+#' dem <- terra::rast(dem)
+#'
+#' buildings <- download_buildings(template = dem)
+#' }
+#'
 download_buildings <- function(template,
                                return = "SpatVector") {
 

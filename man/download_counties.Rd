@@ -18,3 +18,14 @@ A terra SpatVector object.
 Shortcut function that downloads and extracts TIGER U.S. County boundaries
 and returns them as a terra SpatVector object.
 }
+\examples{
+# example code
+\donttest{
+## This example requires an internet connection to run
+dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+dem <- terra::rast(dem)
+
+counties <- download_counties(template = dem)
+}
+
+}
