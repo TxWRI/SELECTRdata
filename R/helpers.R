@@ -1,8 +1,12 @@
-check_terra_gdal_config <- function(call = rlang::caller_env()) {
-  if(terra::getGDALconfig("AWS_NO_SIGN_REQUEST") != "YES") {
-    cli::cli_abort(c("Please set the GDAL configuration in {.pkg terra} with: {.code terra::setGDALconfig('AWS_NO_SIGN_REQUEST=YES')}"),
-                   call = call)
-  }
+check_connectivity <- function(host,
+                               call = rlang::caller_env()) {
+  ## check connectivity
+  if (!has_internet_2(host)) {
+    cli::cli_inform(paste0("No connection to ", host, " available!"),
+                    call = call)
+
+    return(invisible(NULL))
+  } else {TRUE}
 }
 
 check_gdalraster_gdal_config <- function(call = rlang::caller_env()) {
@@ -43,18 +47,30 @@ check_string_contains <- function(x,
 
 }
 
+check_terra_gdal_config <- function(call = rlang::caller_env()) {
+  if(terra::getGDALconfig("AWS_NO_SIGN_REQUEST") != "YES") {
+    cli::cli_abort(c("Please set the GDAL configuration in {.pkg terra} with: {.code terra::setGDALconfig('AWS_NO_SIGN_REQUEST=YES')}"),
+                   call = call)
+  }
+}
+
+
 has_internet_2 <- function(host) {
   !is.null(curl::nslookup(host, error = FALSE))
 }
 
 
-check_connectivity <- function(host,
-                               call = rlang::caller_env()) {
-  ## check connectivity
-  if (!has_internet_2(host)) {
-    cli::cli_inform(paste0("No connection to ", host, " available!"),
-                    call = call)
-
-    return(invisible(NULL))
-  } else {TRUE}
+#' Is there a NASS token?
+#'
+#' Checks if a NASS token has been set in the user environment.
+#' @return logical
+#' @export
+#'
+#' @examples
+#' has_nass_token()
+has_nass_token <- function() {
+  key <- Sys.getenv("NASSQS_TOKEN")
+  if(identical(key, "")) {
+    return(FALSE)
+    } else {TRUE}
 }
