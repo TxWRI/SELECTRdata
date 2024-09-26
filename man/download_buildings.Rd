@@ -12,7 +12,7 @@ download_buildings(template, return = "SpatVector")
 \item{return}{A character object, either \code{SpatVector} or \code{sf}. Defaults to \code{SpatVector}.}
 }
 \value{
-A \code{SpatVector} or \code{sf} object with extents matching the \code{SpatRaster} object provided in the \code{template} argument.
+A \code{SpatVector} or \code{sf} object with extents matching the \code{SpatRaster} object provided in the \code{template} argument. If API resources are not available an invisible \code{NULL} is returned.
 }
 \description{
 Downloads building footprints and attribute data from FEMA's

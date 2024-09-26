@@ -12,7 +12,7 @@ download_counties(template, output = tempfile(fileext = ".gpkg"))
 \item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
 }
 \value{
-A terra SpatVector object.
+A terra SpatVector object. If API resources are not available an invisible \code{NULL} is returned.
 }
 \description{
 Shortcut function that downloads and extracts TIGER U.S. County boundaries

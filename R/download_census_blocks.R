@@ -7,7 +7,7 @@
 #' @param year A character value. Any of the following values should work: `c("2000","2010","2020")`.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
 #'
-#' @return A terra SpatVector object.
+#' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
 #' @export
 #' @examples
 #' # example code
@@ -36,7 +36,14 @@ download_census_blocks <- function(template,
 
 
   furl <- "https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/Tracts_Blocks/MapServer"
-  tracts_blocks <- arcgislayers::arc_open(furl)
+  ## check for service errors first
+  msg <- catch_arcgislayer_error(furl)
+  if(!is.null(msg)) {
+    cli::cli_alert_info(msg[[1]])
+    return(invisible(NULL))
+  } else {
+    tracts_blocks <- arcgislayers::arc_open(furl)
+  }
 
   if(year == '2020') {id <- 2}
   if(year == '2010') {id <- 6}

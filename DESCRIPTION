@@ -14,9 +14,11 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
   arcgislayers,
+  arcgisutils,
   cli,
   curl,
   gdalraster,
+  httr2,
   rlang,
   rnassqs,
   sf,

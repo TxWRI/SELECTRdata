@@ -6,7 +6,7 @@
 #' @param template A SpatRaster object. The extent of the returned object will match `template`.
 #' @param return A character object, either `SpatVector` or `sf`. Defaults to `SpatVector`.
 #'
-#' @return A `SpatVector` or `sf` object with extents matching the `SpatRaster` object provided in the `template` argument.
+#' @return A `SpatVector` or `sf` object with extents matching the `SpatRaster` object provided in the `template` argument. If API resources are not available an invisible `NULL` is returned.
 #' @export
 #' @importFrom arcgislayers arc_open arc_select get_layer
 #' @importFrom sf st_bbox
@@ -38,7 +38,15 @@ download_buildings <- function(template,
 
   ## feature server url
   furl <- "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/USA_Structures_View/FeatureServer"
-  buildings <- arcgislayers::arc_open(furl)
+
+  ## check for service errors first
+  msg <- catch_arcgislayer_error(furl)
+  if(!is.null(msg)) {
+    cli::cli_alert_info(msg[[1]])
+    return(invisible(NULL))
+  } else {
+    buildings <- arcgislayers::arc_open(furl)
+  }
 
   ## feature layer object
   buildings_layer <- arcgislayers::get_layer(buildings, id = 0)
