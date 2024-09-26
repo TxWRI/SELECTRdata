@@ -6,7 +6,7 @@
 #' @param template A SpatRaster object.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
 #'
-#' @return A terra SpatVector object.
+#' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
 #' @export
 #' @examples
 #' # example code
@@ -31,7 +31,16 @@ download_counties <- function(template,
   check_spat_ras(template)
 
   furl <- "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer"
-  state_county <- arcgislayers::arc_open(furl)
+
+  ## check for service errors first
+  msg <- catch_arcgislayer_error(furl)
+  if(!is.null(msg)) {
+    cli::cli_alert_info(msg[[1]])
+    return(invisible(NULL))
+  } else {
+    state_county <- arcgislayers::arc_open(furl)
+  }
+
 
   county_layer <- arcgislayers::get_layer(state_county, id = 7)
 

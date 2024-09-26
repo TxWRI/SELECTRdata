@@ -74,3 +74,46 @@ has_nass_token <- function() {
     return(FALSE)
     } else {TRUE}
 }
+
+
+## arcgisutils helpers
+## capture message and return message with invisible null
+## must do this because ARCGIS doesn't return status code in the response
+## but in the json body
+## doing this to help functions fail gracefully without errors ie, demote warnings/errors to messages.
+catch_arcgislayer_error <- function(furl) {
+
+  resp_string <- arcgisutils::arc_base_req(furl) |>
+    httr2::req_url_query(f = "json") |>
+    httr2::req_perform() |>
+    httr2::resp_body_json(check_type = FALSE) |>
+    capture_error_message()
+
+  if(is.null(resp_string)) {
+    invisible(NULL)
+  } else {resp_string}
+
+}
+
+## adapted from arcgisutils https://github.com/R-ArcGIS/arcgisutils/blob/main/R/utils-requests.R
+capture_error_message <- function(resp_string) {
+  e <- resp_string[["error"]]
+  if (!is.null(e)) {
+    err_msg <- strwrap(
+      paste0("  Error", e$messageCode, ": ", e$message),
+      prefix = "    ",
+      initial = ""
+    )
+
+    full_msg <- c(
+      "Status code: ",
+      e[["code"]],
+      "\n",
+      paste0(err_msg, collapse = "\n")
+    )
+
+    c(paste0(full_msg, collapse = ""), "i" = e$details)
+  } else {
+    invisible(NULL)
+  }
+}
