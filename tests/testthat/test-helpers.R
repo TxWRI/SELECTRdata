@@ -56,7 +56,7 @@ test_that("check_string works", {
   testthat::expect_null(out)
 
   x <- list(1, FALSE, NULL)
-  for(i in length(x)) {
+  for(i in 1:length(x)) {
     testthat::expect_error(check_string(x[[i]]))
   }
 
