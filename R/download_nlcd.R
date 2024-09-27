@@ -60,28 +60,11 @@ download_nlcd       <- function(template,
   )
 
   ## generate s3 path
-  if(landmass == "l48") {
-    if(year == 2021) {
-      version <- "20230630"
-    } else {version <- "20210604"}
-  }
-  if(landmass == "ak") {
-    if(year %in% c("2016", "2011", "2001")) {
-      version <- "20200724"
-    } else {
-      ## return error that data is not available
-      msg <- paste0("NLCD data for ", year, " and ", landmass, " is not available. See https://www.mrlc.gov/data?f%5B0%5D=category%3ALand%20Cover for available datasets.")
-      rlang::abort(message = msg)
-    }
-  }
-
-  base_url <- paste0("/vsizip/vsis3/mrlc/")
-  path_url <- paste0("nlcd_", year, "_", dataset, "_", landmass, "_", version, ".zip")
-
+  s3_path <- gen_s3_path(landmass, year, dataset)
 
   ## need to check path is valid somehow
-  files <- gdalraster::vsi_read_dir(paste0(base_url, path_url))
-  nlcd_file <- paste0(base_url, path_url, "/", files[grep(".img", files)])
+  files <- gdalraster::vsi_read_dir(s3_path)
+  nlcd_file <- paste0(s3_path, "/", files[grep(".img", files)])
 
   ## grab the extent of the template
   template_crs <- terra::crs(template)
@@ -114,5 +97,39 @@ download_nlcd       <- function(template,
 
 }
 
+gen_s3_path <- function(landmass, year, dataset) {
+  ## generate s3 path
+  if(landmass == "l48") {
+    if(year == 2021) {
+      version <- "20230630"
+    } else {version <- "20210604"}
+  }
+  if(landmass == "ak") {
+    if(year %in% c("2016", "2011", "2001")) {
+      version <- "20200724"
+    } else {
+      ## return error that data is not available
+      msg <- paste0("NLCD data for ", year, " and ", landmass, " is not available. See https://www.mrlc.gov/data?f%5B0%5D=category%3ALand%20Cover for available datasets.")
+      rlang::abort(message = msg)
+    }
+  }
+
+  if(landmass == "ak") {
+    if(dataset == "land_cover") {
+      dataset <- "Land_Cover"
+      landmass <- "AK"
+    }
+  }
+
+  base_url <- paste0("/vsizip/vsis3/mrlc/")
+  if(landmass == "l48") {
+    path_url <- paste0("nlcd_", year, "_", dataset, "_", landmass, "_", version, ".zip")
+  } else {
+    path_url <- paste0("NLCD_", year, "_", dataset, "_", landmass, "_", version, ".zip")
+  }
+
+
+  return(paste0(base_url, path_url))
+}
 
 
