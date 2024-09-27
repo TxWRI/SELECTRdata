@@ -2,7 +2,7 @@ check_connectivity <- function(host,
                                call = rlang::caller_env()) {
   ## check connectivity
   if (!has_internet_2(host)) {
-    cli::cli_inform(paste0("No connection to ", host, " available!"),
+    cli::cli_inform(c("i" = paste0("No connection to ", host, " available!")),
                     call = call)
 
     return(invisible(NULL))
