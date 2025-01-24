@@ -7,6 +7,7 @@
 download_census_blocks(
   template,
   year = "2020",
+  page_size = NULL,
   output = tempfile(fileext = ".gpkg")
 )
 }
@@ -14,6 +15,8 @@ download_census_blocks(
 \item{template}{A SpatRaster object.}
 
 \item{year}{A character value. Any of the following values should work: \code{c("2000","2010","2020")}.}
+
+\item{page_size}{a numeric value passed to arcgislayers::arcselect(). Defaults to NULL. Useful when the requests returns a 500 error code.}
 
 \item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
 }

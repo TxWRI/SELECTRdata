@@ -5,6 +5,7 @@
 #'
 #' @param template A SpatRaster object.
 #' @param year A character value. Any of the following values should work: `c("2000","2010","2020")`.
+#' @param page_size a numeric value passed to arcgislayers::arcselect(). Defaults to NULL. Useful when the requests returns a 500 error code.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
@@ -21,6 +22,7 @@
 #'
 download_census_blocks <- function(template,
                                    year = "2020",
+                                   page_size = NULL,
                                    output = tempfile(fileext = ".gpkg")) {
   ## are we online?
   ## check connectivity
@@ -49,6 +51,7 @@ download_census_blocks <- function(template,
   if(year == '2010') {id <- 6}
   if(year == '2000') {id <- 10}
 
+  ## this needs to be wrapped a try
   blocks_layer <- arcgislayers::get_layer(tracts_blocks, id = id)
 
   ## create a bbox object from DEM
@@ -56,7 +59,8 @@ download_census_blocks <- function(template,
 
   ## retrieve the cropped featuer layer
   blocks_sf <- arcgislayers::arc_select(blocks_layer,
-                                        filter_geom = bounds)
+                                        filter_geom = bounds,
+                                        page_size = page_size)
 
   blocks_vect <- terra::vect(blocks_sf)
 
