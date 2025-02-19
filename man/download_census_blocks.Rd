@@ -35,6 +35,7 @@ dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
 dem <- terra::rast(dem)
 
 blocks <- download_census_blocks(template = dem)
+blocks
 }
 
 }
