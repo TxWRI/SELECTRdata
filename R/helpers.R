@@ -1,8 +1,18 @@
+#' Check internet connectivity
+#'
+#' Checks dns via curl and return cli message or invisible null.
+#' @param host url
+#' @param call defaults to [`rlang::caller_env()`] and passed to [`cli::cli_inform`]
+#'
+#' @return `TRUE` or message with invisible `NULL`
+#' @keywords internal
+#'
+#' @importFrom cli cli_inform
 check_connectivity <- function(host,
                                call = rlang::caller_env()) {
   ## check connectivity
   if (!has_internet_2(host)) {
-    cli::cli_inform(paste0("No connection to ", host, " available!"),
+    cli::cli_inform(c("i" = paste0("No connection to ", host, " available!")),
                     call = call)
 
     return(invisible(NULL))
@@ -55,6 +65,16 @@ check_terra_gdal_config <- function(call = rlang::caller_env()) {
 }
 
 
+
+#' nslookup wrapper
+#'
+#' Wrapper for [`curl::nslookup`] that returns logical without error.
+#' @param host hostname
+#'
+#' @return logical value
+#' @keywords internal
+#'
+#' @importFrom curl nslookup
 has_internet_2 <- function(host) {
   !is.null(curl::nslookup(host, error = FALSE))
 }
@@ -76,11 +96,21 @@ has_nass_token <- function() {
 }
 
 
-## arcgisutils helpers
-## capture message and return message with invisible null
-## must do this because ARCGIS doesn't return status code in the response
-## but in the json body
-## doing this to help functions fail gracefully without errors ie, demote warnings/errors to messages.
+#' Retrieve status code from ArcGIS servers
+#'
+#' ArcGIS servers return status codes within the response body itself (as json).
+#' `catch_arcgislayer_error` captures and returns status code message if there
+#' is an error code. Otherwise it will return an invisible `NULL`. This is
+#' primarily an internal function to help our data retrieval functions
+#' fail gracefully in case of eorrs returns by the server.
+#'
+#' @param furl the base url.
+#'
+#' @return character message or invisible `NULL`
+#' @importFrom arcgisutils arc_base_req
+#' @importFrom httr2 req_url_query req_perform resp_body_json
+#' @keywords internal
+
 catch_arcgislayer_error <- function(furl) {
 
   resp_string <- arcgisutils::arc_base_req(furl) |>

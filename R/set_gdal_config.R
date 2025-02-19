@@ -2,12 +2,14 @@
 
 #' Set GDAL configuration options
 #'
-#' A convience functions for simultaneously setting the GDAL runtime
+#' A convenience functions for simultaneously setting the GDAL runtime
 #' configuration options in both terra and gdalraster.
 #' @param option Character name of a configuration option.
 #' @param value Character value to set for the option. `value = ""` (empty string) will unset previously set values.
 #'
 #' @return No return value, called for side effects.
+#' @importFrom gdalraster set_config_option
+#' @importFrom terra setGDALconfig
 #' @export
 #' @seealso [terra::setGDALconfig()] and [gdalraster::set_config_option()]
 #' @examples

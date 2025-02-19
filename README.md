@@ -40,7 +40,7 @@ You can install the development version of SELECTRdata like so:
 library(SELECTRdata)
 library(terra)
 #> Warning: package 'terra' was built under R version 4.3.3
-#> terra 1.7.78
+#> terra 1.8.10
 
 ## we need a template file, this is the thomsoncreek watershed in Texas
 dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
@@ -73,6 +73,11 @@ plot(wbd, add = TRUE)
 
 ``` r
 buildings <- download_buildings(template = dem)
+#> Registered S3 method overwritten by 'jsonify':
+#>   method     from    
+#>   print.json jsonlite
+#> Iterating ■■■■■■■■■■■■■■■■ 50% | ETA: 1sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% |
+#> ETA: 6s
 plot(buildings)
 ```
 
@@ -82,7 +87,7 @@ plot(buildings)
 
 ``` r
 cen_blocks <- download_census_blocks(dem, "2020")
-plot(cen_blocks, "POP100")
+plot(cen_blocks, "P0010001")
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />

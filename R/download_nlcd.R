@@ -1,33 +1,36 @@
 ## download_nlcd
 
 
-#' Downlaod and write NLCD raster data to file.
+#' Download and write annual NLCD raster data to file.
 #'
-#' Downloads and writes an NLCD SpatRaster to file with extents defined by `template`.
+#' Downloads and writes an NLCD SpatRaster to file with extents defined by `template`. This function downloads the annualized NLCD data products. See [https://www.mrlc.gov/data/project/annual-nlcd](https://www.mrlc.gov/data/project/annual-nlcd) for more information.
 #'
 #' @param template A SpatRaster object defining the spatial extent of the returned NLCD raster.
-#' @param year character, expects one of: `c("2001", "2004", "2006", "2008", "2011", "2013", "2016", "2019", "2021")`. Note that not all years are available for all landmass areas. See https://www.mrlc.gov/data-services-page for data and area availability.
-#' @param dataset Character, currently only supports `land_cover`. Future support for impervious and tree canopy cover is possible.
-#' @param landmass  Character, one of: `c("l48", "ak", "hi", "pr")`.
+#' @param year character, expects a value between `1986:2023`.
+#' @param dataset Character. Expects `c("LndCov","LndChg","LndCnf","FctImp","ImpDsc","SpcChg")`.
+#' @param landmass  Character, one of: `c("CU", "AK", "HI")`.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
 #' @param overwrite logical. If `TRUE`, filename is overwritten
 #' @param verbose Logical, if `TRUE` informative messages will be printed.
 #' @param ... additional arguments for for writing files, see `terra::writeRaster()`
 #'
 #' @return A SpatRaster object with file written to `output`
+#' @importFrom rlang arg_match
+#' @importFrom gdalraster vsi_read_dir
+#' @importFrom terra crop crs ext project rast
 #' @export
 
 download_nlcd       <- function(template,
                                 year = "2021",
-                                dataset = "land_cover",
-                                landmass = "l48",
+                                dataset = "LndCov",
+                                landmass = "CU",
                                 output = tempfile(fileext = ".tiff"),
                                 overwrite = FALSE,
                                 verbose = FALSE,
                                 ...) {
   ## are we online?
   ## check connectivity
-  if (!isTRUE(check_connectivity("mrlc.gov"))) {
+  if (!isTRUE(check_connectivity("s3-us-west-2.amazonaws.com"))) {
     return(invisible(NULL))
   }
 
@@ -46,49 +49,38 @@ download_nlcd       <- function(template,
   ## check landmass
 
   year <- rlang::arg_match(year,
-                           values = c("2001", "2004", "2006", "2008", "2011", "2013", "2016", "2019", "2021"))
+                           values = as.character(c(1985:2023)))
 
   dataset <- rlang::arg_match(dataset,
-                              values = c("land_cover"))
+                              values = c(
+                                "LndCov",
+                                "LndChg",
+                                "LndCnf",
+                                "FctImp",
+                                "ImpDsc",
+                                "SpcChg"
+                              ))
 
   landmass <- rlang::arg_match(landmass,
                                values = c(
-                                 "l48",
-                                 "ak",
-                                 "hi",
-                                 "pr")
+                                 "CU",
+                                 "AK",
+                                 "HI")
   )
 
   ## generate s3 path
-  if(landmass == "l48") {
-    if(year == 2021) {
-      version <- "20230630"
-    } else {version <- "20210604"}
-  }
-  if(landmass == "ak") {
-    if(year %in% c("2016", "2011", "2001")) {
-      version <- "20200724"
-    } else {
-      ## return error that data is not available
-      msg <- paste0("NLCD data for ", year, " and ", landmass, " is not available. See https://www.mrlc.gov/data?f%5B0%5D=category%3ALand%20Cover for available datasets.")
-      rlang::abort(message = msg)
-    }
-  }
-
-  base_url <- paste0("/vsizip/vsis3/mrlc/")
-  path_url <- paste0("nlcd_", year, "_", dataset, "_", landmass, "_", version, ".zip")
-
+  s3_path <- gen_s3_path(landmass, year, dataset)
 
   ## need to check path is valid somehow
-  files <- gdalraster::vsi_read_dir(paste0(base_url, path_url))
-  nlcd_file <- paste0(base_url, path_url, "/", files[grep(".img", files)])
+  #files <- gdalraster::vsi_read_dir(s3_path)
+  #nlcd_file <- paste0(s3_path, "/", files[grep(".img", files)])
 
   ## grab the extent of the template
   template_crs <- terra::crs(template)
   template <- terra::ext(template)
 
   ## check the crs of template and nlcd match
-  nlcd_ds <- terra::rast(nlcd_file)
+  nlcd_ds <- terra::rast(s3_path)
   nlcd_crs <- terra::crs(nlcd_ds)
 
   if(nlcd_crs != template_crs) {
@@ -114,5 +106,24 @@ download_nlcd       <- function(template,
 
 }
 
+gen_s3_path <- function(landmass, year, dataset) {
+
+  ## return error if landmass != CU
+  if(landmass != "CU") {
+    cli_abort(c(
+      "{.var landmass} currently only accepts 'CU' until annaulized NLCD products are available for other regions."
+    ),
+    call = rlang::caller_env())
+  }
+
+  #nlcd_annual_bucket <- "https://s3-us-west-2.amazonaws.com/mrlc"
+  collection <- 1
+  version <- 0
+
+  base_url <- paste0("/vsis3/mrlc/")
+  path_url <- paste0("Annual_NLCD_", dataset, "_", year, "_", landmass, "_C", collection, "V", version, ".tif")
+
+  return(paste0(base_url, path_url))
+}
 
 

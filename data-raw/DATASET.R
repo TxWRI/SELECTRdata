@@ -117,3 +117,17 @@ terra::writeRaster(elevation,
                    "inst\\extdata\\thompsoncreek.tif",
                    overwrite = TRUE,
                    gdal = c("COMPRESS=DEFLATE"))
+
+
+## add the thompson creek nlcd raster
+dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+dem <- terra::rast(dem)
+SELECTRdata::set_gdal_config("AWS_NO_SIGN_REQUEST", "YES")
+
+## download the NLCD file cropped to the extents of the watershed
+nlcd <- SELECTRdata::download_nlcd(template = dem,
+                                   overwrite = TRUE,
+                                   progress = 1)
+terra::writeRaster(nlcd,
+                   filename = "inst\\extdata\\thompson_nlcd.tif")
+SELECTRdata::set_gdal_config("AWS_NO_SIGN_REQUEST", "")
