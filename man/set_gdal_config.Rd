@@ -15,7 +15,7 @@ set_gdal_config(option, value)
 No return value, called for side effects.
 }
 \description{
-A convience functions for simultaneously setting the GDAL runtime
+A convenience functions for simultaneously setting the GDAL runtime
 configuration options in both terra and gdalraster.
 }
 \examples{
