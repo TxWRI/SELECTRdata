@@ -57,7 +57,8 @@ test_that("nlcd returns same raster as manual downloads", {
   nlcd_ds <- terra::crop(x = nlcd_ds,
                          y = dem)
 
-  testthat::expect_identical(sum(nlcd, nlcd_ds))
+  testthat::expect_identical(terra::global(nlcd, fun = "sum"),
+                             terra::global(nlcd_ds, fun = "sum"))
 
 
   set_gdal_config('AWS_NO_SIGN_REQUEST', '')

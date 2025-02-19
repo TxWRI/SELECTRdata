@@ -2,13 +2,13 @@
 % Please edit documentation in R/download_nlcd.R
 \name{download_nlcd}
 \alias{download_nlcd}
-\title{Downlaod and write NLCD raster data to file.}
+\title{Download and write annual NLCD raster data to file.}
 \usage{
 download_nlcd(
   template,
   year = "2021",
-  dataset = "land_cover",
-  landmass = "l48",
+  dataset = "LndCov",
+  landmass = "CU",
   output = tempfile(fileext = ".tiff"),
   overwrite = FALSE,
   verbose = FALSE,
@@ -18,11 +18,11 @@ download_nlcd(
 \arguments{
 \item{template}{A SpatRaster object defining the spatial extent of the returned NLCD raster.}
 
-\item{year}{character, expects one of: \code{c("2001", "2004", "2006", "2008", "2011", "2013", "2016", "2019", "2021")}. Note that not all years are available for all landmass areas. See https://www.mrlc.gov/data-services-page for data and area availability.}
+\item{year}{character, expects a value between \code{1986:2023}.}
 
-\item{dataset}{Character, currently only supports \code{land_cover}. Future support for impervious and tree canopy cover is possible.}
+\item{dataset}{Character. Expects \code{c("LndCov","LndChg","LndCnf","FctImp","ImpDsc","SpcChg")}.}
 
-\item{landmass}{Character, one of: \code{c("l48", "ak", "hi", "pr")}.}
+\item{landmass}{Character, one of: \code{c("CU", "AK", "HI")}.}
 
 \item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
 
@@ -36,5 +36,5 @@ download_nlcd(
 A SpatRaster object with file written to \code{output}
 }
 \description{
-Downloads and writes an NLCD SpatRaster to file with extents defined by \code{template}.
+Downloads and writes an NLCD SpatRaster to file with extents defined by \code{template}. This function downloads the annualized NLCD data products. See \url{https://www.mrlc.gov/data/project/annual-nlcd} for more information.
 }
