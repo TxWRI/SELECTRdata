@@ -88,7 +88,7 @@ plot(buildings)
 
 ```{r}
 cen_blocks <- download_census_blocks(dem, "2020")
-plot(cen_blocks, "POP100")
+plot(cen_blocks, "P0010001")
 ```
 
 ```{r}
