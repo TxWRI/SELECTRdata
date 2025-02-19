@@ -108,6 +108,14 @@ download_nlcd       <- function(template,
 
 gen_s3_path <- function(landmass, year, dataset) {
 
+  ## return error if landmass != CU
+  if(landmass != "CU") {
+    cli_abort(c(
+      "{.var landmass} currently only accepts 'CU' until annaulized NLCD products are available for other regions."
+    ),
+    call = rlang::caller_env())
+  }
+
   #nlcd_annual_bucket <- "https://s3-us-west-2.amazonaws.com/mrlc"
   collection <- 1
   version <- 0
