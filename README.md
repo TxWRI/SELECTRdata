@@ -76,8 +76,8 @@ buildings <- download_buildings(template = dem)
 #> Registered S3 method overwritten by 'jsonify':
 #>   method     from    
 #>   print.json jsonlite
-#> Iterating ■■■■■■■■■ 25% | ETA: 3sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:
-#> 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
+#> Iterating ■■■■■■■■■■■■■■■■ 50% | ETA: 1sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% |
+#> ETA: 6s
 plot(buildings)
 ```
 
