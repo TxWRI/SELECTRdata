@@ -36,33 +36,31 @@ test_that("nlcd paths are correct", {
 })
 
 
-#
-# test_that("nlcd returns same raster as manual downloads", {
-#   ## this is a pretty heavy test
-#   ## might want to better condition when it runs
-#   testthat::skip_on_cran()
-#   testthat::skip_if_offline()
-#   set_gdal_config('AWS_NO_SIGN_REQUEST', 'YES')
-#   dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
-#   dem <- terra::rast(dem)
-#   landmass <- "l48"
-#   year <- "2021"
-#   dataset <- "land_cover"
-#   # file download by function
-#   nlcd <- SELECTRdata::download_nlcd(template = dem)
-#
-#   # manual file download
-#   s3_path <- SELECTRdata:::gen_s3_path(landmass, year, dataset)
-#   files <- gdalraster::vsi_read_dir(s3_path)
-#   nlcd_file <- paste0(s3_path, "/", files[grep(".img", files)])
-#
-#   nlcd_ds <- terra::rast(nlcd_file)
-#   nlcd_ds <- terra::crop(x = nlcd_ds,
-#                          y = dem)
-#
-#   testthat::expect_identical(terra::global(nlcd, fun = "sum"),
-#                              terra::global(nlcd_ds, fun = "sum"))
-#
-#
-#   set_gdal_config('AWS_NO_SIGN_REQUEST', '')
-# })
+
+test_that("nlcd returns same raster as manual downloads", {
+  ## this is a pretty heavy test
+  ## might want to better condition when it runs
+  testthat::skip_on_cran()
+  testthat::skip_if_offline()
+  set_gdal_config('AWS_NO_SIGN_REQUEST', 'YES')
+  dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+  dem <- terra::rast(dem)
+  landmass <- "CU"
+  year <- "2021"
+  dataset <- "LndCov"
+  # file download by function
+  nlcd <- SELECTRdata::download_nlcd(template = dem)
+
+  # manual file download
+  s3_path <- SELECTRdata:::gen_s3_path(landmass, year, dataset)
+
+  nlcd_ds <- terra::rast(s3_path)
+  nlcd_ds <- terra::crop(x = nlcd_ds,
+                         y = dem)
+
+  testthat::expect_identical(terra::global(nlcd, fun = "sum"),
+                             terra::global(nlcd_ds, fun = "sum"))
+
+
+  set_gdal_config('AWS_NO_SIGN_REQUEST', '')
+})
