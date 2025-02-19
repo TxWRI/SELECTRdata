@@ -8,6 +8,11 @@
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
 #' @export
+#' @importFrom arcgislayers arc_open arc_select get_layer
+#' @importFrom cli cli_alert_info
+#' @importFrom sf st_bbox
+#' @importFrom terra vect writeVector
+#'
 #' @examples
 #' # example code
 #' \donttest{
@@ -23,14 +28,14 @@ download_counties <- function(template,
 
   ## are we online?
   ## check connectivity
-  if (!isTRUE(check_connectivity("tigerweb.geo.census.gov"))) {
+  if (!isTRUE(check_connectivity("services.arcgis.com"))) {
     return(invisible(NULL))
   }
 
   ## check template if a spatraster
   check_spat_ras(template)
 
-  furl <- "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer"
+  furl <- "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Census_Counties/FeatureServer"
 
   ## check for service errors first
   msg <- catch_arcgislayer_error(furl)
@@ -42,7 +47,7 @@ download_counties <- function(template,
   }
 
 
-  county_layer <- arcgislayers::get_layer(state_county, id = 7)
+  county_layer <- arcgislayers::get_layer(state_county, id = 0)
 
   ## create a bbox object from DEM
   bounds <- sf::st_bbox(template)
@@ -56,7 +61,7 @@ download_counties <- function(template,
   terra::writeVector(county_vect,
                      filename = output)
 
-  return(vect(output))
+  return(terra::vect(output))
 }
 
 
