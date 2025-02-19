@@ -84,17 +84,33 @@ buildings <- download_buildings(template = dem)
 plot(buildings)
 ```
 
-### TIGER Counties
+### U.S. Census Blocks
+
+Includes housing unit and population data.
 
 ```{r}
 cen_blocks <- download_census_blocks(dem, "2020")
 plot(cen_blocks, "P0010001")
 ```
 
+### TIGER Counties
+
+County boundaries cropped to coastlines.
+
 ```{r}
 counties <- download_counties(dem)
 plot(counties)
 ```
+
+## Urbanized Areas
+
+U.S. Census designated urban areas from the 2020 U.S. Census.
+
+```{r}
+ua <- download_urban_areas(dem)
+plot(ua)
+```
+
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
 
