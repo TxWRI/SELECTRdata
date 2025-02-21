@@ -15,7 +15,7 @@ download_urban_areas(
 
 \item{page_size}{a numeric value passed to \code{arcgislayers::arcselect()}. Defaults to NULL. Useful when the requests returns a 500 error code.}
 
-\item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
+\item{output}{A character file path specifying where the \code{SpatVector} output object should be written. Defaults to a temporary file.}
 }
 \value{
 A terra SpatVector object. If API resources are not available an invisible \code{NULL} is returned.

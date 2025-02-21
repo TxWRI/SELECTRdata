@@ -73,6 +73,7 @@ test_that("check_string works", {
 
 test_that("arcgis helpers work",{
 
+  testthat::skip_on_cran()
   furl <- "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/Watershed_Boundary_Dataset_HUC_8s/FeatureServer"
   out <- expect_invisible(catch_arcgislayer_error(furl))
   testthat::expect_null(out)

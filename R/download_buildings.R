@@ -5,12 +5,13 @@
 #'
 #' @param template A SpatRaster object. The extent of the returned object will match `template`.
 #' @param return A character object, either `SpatVector` or `sf`. Defaults to `SpatVector`.
+#' @param output A character file path specifying where the `SpatVector` file should be written. Defaults to a temporary file.
 #'
 #' @return A `SpatVector` or `sf` object with extents matching the `SpatRaster` object provided in the `template` argument. If API resources are not available an invisible `NULL` is returned.
 #' @export
 #' @importFrom arcgislayers arc_open arc_select get_layer
-#' @importFrom sf st_bbox
-#' @importFrom terra vect
+#' @importFrom sf st_bbox st_crs st_transform
+#' @importFrom terra project vect writeVector
 #' @examples
 #' \donttest{
 #' ## This example requires an internet connection to run
@@ -21,7 +22,8 @@
 #' }
 #'
 download_buildings <- function(template,
-                               return = "SpatVector") {
+                               return = "SpatVector",
+                               output = tempfile(fileext = ".gpkg")) {
 
   ## are we online?
   ## check connectivity
@@ -59,10 +61,13 @@ download_buildings <- function(template,
                                            filter_geom = bounds)
 
   if(return == "SpatVector") {
-    output <- terra::vect(buildings_sf)
+    buildings_vect <- terra::vect(buildings_sf)
+    buildings_vect <- terra::project(buildings_vect, template)
+    terra::writeVector(buildings_vect,
+                       filename = output)
+    return(terra::vect(output))
   } else {
-    output <- buildings_sf
+    buildings_sf <- sf::st_transform(buildings_sf, st_crs(template))
+    return(buildings_sf)
   }
-
-  return(output)
 }
