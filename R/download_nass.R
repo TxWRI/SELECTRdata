@@ -111,6 +111,16 @@ download_nass_census <- function(group_desc = "LIVESTOCK",
 }
 
 
+#' Check year argument
+#'
+#' @param x character
+#' @param arg defaults to `rlang::caller_arg()`
+#' @param call defaults to `rlang::caller_env()`
+#' @importFrom cli cli_abort
+#'
+#' @return error or nothing
+#' @keywords internal
+#'
 check_census_year <- function(x,
                               arg = rlang::caller_arg(x),
                               call = rlang::caller_env()) {
