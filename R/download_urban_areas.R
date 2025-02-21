@@ -4,13 +4,13 @@
 #'
 #' @param template A SpatRaster object.
 #' @param page_size a numeric value passed to `arcgislayers::arcselect()`. Defaults to NULL. Useful when the requests returns a 500 error code.
-#' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
+#' @param output A character file path specifying where the `SpatVector` output object should be written. Defaults to a temporary file.
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
 #' @importFrom arcgislayers arc_open arc_select get_layer
 #' @importFrom cli cli_alert_info
 #' @importFrom sf st_bbox
-#' @importFrom terra vect writeVector
+#' @importFrom terra project vect writeVector
 #' @export
 #'
 #' @examples
@@ -62,6 +62,8 @@ download_urban_areas <- function(template,
 
   queried_layer_vect <- terra::vect(queried_layer)
 
+  ## if crs does not match, then project the vector download
+  queried_layer_vect <- terra::project(queried_layer_vect, template)
   terra::writeVector(queried_layer_vect,
                      filename = output)
 

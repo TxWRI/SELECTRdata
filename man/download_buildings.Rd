@@ -4,12 +4,18 @@
 \alias{download_buildings}
 \title{Download building footprints}
 \usage{
-download_buildings(template, return = "SpatVector")
+download_buildings(
+  template,
+  return = "SpatVector",
+  output = tempfile(fileext = ".gpkg")
+)
 }
 \arguments{
 \item{template}{A SpatRaster object. The extent of the returned object will match \code{template}.}
 
 \item{return}{A character object, either \code{SpatVector} or \code{sf}. Defaults to \code{SpatVector}.}
+
+\item{output}{A character file path specifying where the \code{SpatVector} file should be written. Defaults to a temporary file.}
 }
 \value{
 A \code{SpatVector} or \code{sf} object with extents matching the \code{SpatRaster} object provided in the \code{template} argument. If API resources are not available an invisible \code{NULL} is returned.

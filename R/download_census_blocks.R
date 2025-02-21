@@ -13,7 +13,7 @@
 #' @importFrom cli cli_alert_info
 #' @importFrom rlang arg_match
 #' @importFrom sf st_bbox
-#' @importFrom terra vect writeVector
+#' @importFrom terra project vect writeVector
 #' @export
 #' @examples
 #' # example code
@@ -78,6 +78,8 @@ download_census_blocks <- function(template,
                                         page_size = page_size)
 
   blocks_vect <- terra::vect(blocks_sf)
+
+  blocks_vect <- terra::project(blocks_vect, template)
 
   terra::writeVector(blocks_vect,
                      filename = output)
