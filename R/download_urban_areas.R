@@ -10,7 +10,7 @@
 #' @importFrom arcgislayers arc_open arc_select get_layer
 #' @importFrom cli cli_alert_info
 #' @importFrom sf st_bbox
-#' @importFrom terra vect writeVector
+#' @importFrom terra project vect writeVector
 #' @export
 #'
 #' @examples
@@ -61,6 +61,9 @@ download_urban_areas <- function(template,
                                         page_size = page_size)
 
   queried_layer_vect <- terra::vect(queried_layer)
+
+  ## if crs does not match, then project the vector download
+  queried_layer_vect <- terra::project(queried_layer_vect, template)
 
   terra::writeVector(queried_layer_vect,
                      filename = output)
