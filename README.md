@@ -8,6 +8,7 @@
 [![Project Status: WIP - Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![R-CMD-check](https://github.com/TxWRI/SELECTRdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TxWRI/SELECTRdata/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 SELECTRdata provides convenience functions for downloading raster and
@@ -76,8 +77,7 @@ buildings <- download_buildings(template = dem)
 #> Registered S3 method overwritten by 'jsonify':
 #>   method     from    
 #>   print.json jsonlite
-#> Iterating ■■■■■■■■■ 25% | ETA: 6sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:
-#> 3sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
+#> Iterating ■■■■■■■■■■■■■■■■ 50% | ETA: 2s
 plot(buildings)
 ```
 
