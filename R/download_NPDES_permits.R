@@ -93,5 +93,8 @@ download_NPDES_permits <- function(template,
 
   points <- terra::vect(body)
 
-  return(points)
+  terra::writeVector(points,
+                     filename = output)
+
+  return(terra::vect(output))
 }
