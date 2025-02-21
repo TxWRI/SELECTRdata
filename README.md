@@ -76,14 +76,16 @@ buildings <- download_buildings(template = dem)
 #> Registered S3 method overwritten by 'jsonify':
 #>   method     from    
 #>   print.json jsonlite
-#> Iterating ■■■■■■■■■■■■■■■■ 50% | ETA: 1sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% |
-#> ETA: 6s
+#> Iterating ■■■■■■■■■ 25% | ETA: 6sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:
+#> 3sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
 plot(buildings)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
-### TIGER Counties
+### U.S. Census Blocks
+
+Includes housing unit and population data.
 
 ``` r
 cen_blocks <- download_census_blocks(dem, "2020")
@@ -92,12 +94,27 @@ plot(cen_blocks, "P0010001")
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
+### TIGER Counties
+
+County boundaries cropped to coastlines.
+
 ``` r
 counties <- download_counties(dem)
 plot(counties)
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+## Urbanized Areas
+
+U.S. Census designated urban areas from the 2020 U.S. Census.
+
+``` r
+ua <- download_urban_areas(dem)
+plot(ua)
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
 up-to-date. `devtools::build_readme()` is handy for this.
