@@ -147,3 +147,30 @@ capture_error_message <- function(resp_string) {
     invisible(NULL)
   }
 }
+
+
+
+# request urls --------------------------------------------------------------
+
+## builds the ECHO API request
+
+#' Construct URL used in the httr call
+#'
+#' @param resource Character vector, specifies API path to ECHO's webservices
+#' @param ... Character vector, specifies the parameters sent in the GET request
+#' @importFrom httr2 request req_url_path_append req_url_query
+#' @importFrom rlang !!!
+#' @keywords internal
+#' @noRd
+requestECHO <- function(resource, ...) {
+
+  params <- list(
+    ...
+  )
+
+  httr2::request("https://echodata.epa.gov/echo") |>
+    httr2::req_url_path_append(resource) |>
+    httr2::req_url_query(!!!params)
+
+
+}
