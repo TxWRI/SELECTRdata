@@ -4,21 +4,13 @@
 #'
 #' @param template A SpatRaster object.
 #' @param page_size a numeric value passed to `arcgislayers::arcselect()`. Defaults to NULL. Useful when the requests returns a 500 error code.
-<<<<<<< HEAD
 #' @param output A character file path specifying where the `SpatVector` output object should be written. Defaults to a temporary file.
-=======
-#' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
->>>>>>> f84f6eeb4723a7b7a261a056c3d17f7b82bb48e0
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
 #' @importFrom arcgislayers arc_open arc_select get_layer
 #' @importFrom cli cli_alert_info
 #' @importFrom sf st_bbox
-<<<<<<< HEAD
 #' @importFrom terra project vect writeVector
-=======
-#' @importFrom terra vect writeVector
->>>>>>> f84f6eeb4723a7b7a261a056c3d17f7b82bb48e0
 #' @export
 #'
 #' @examples
