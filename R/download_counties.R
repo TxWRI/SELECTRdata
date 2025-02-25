@@ -11,7 +11,7 @@
 #' @importFrom arcgislayers arc_open arc_select get_layer
 #' @importFrom cli cli_alert_info
 #' @importFrom sf st_bbox
-#' @importFrom terra vect writeVector
+#' @importFrom terra project vect writeVector
 #'
 #' @examples
 #' # example code
@@ -57,6 +57,7 @@ download_counties <- function(template,
                                         filter_geom = bounds)
 
   county_vect <- terra::vect(county_sf)
+  county_vect <- terra::project(county_vect, template)
 
   terra::writeVector(county_vect,
                      filename = output)
