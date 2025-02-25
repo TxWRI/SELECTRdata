@@ -2,6 +2,7 @@
 output: github_document
 ---
 
+<!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
@@ -84,6 +85,7 @@ plot(wbd, add = TRUE)
 ```{r}
 buildings <- download_buildings(template = dem)
 plot(buildings)
+plot(wbd, add = TRUE)
 ```
 
 ### U.S. Census Blocks
@@ -93,6 +95,7 @@ Includes housing unit and population data.
 ```{r}
 cen_blocks <- download_census_blocks(dem, "2020")
 plot(cen_blocks, "P0010001")
+plot(wbd, col = "white", alpha = 0.5, add = TRUE)
 ```
 
 ### TIGER Counties
@@ -102,6 +105,7 @@ County boundaries cropped to coastlines.
 ```{r}
 counties <- download_counties(dem)
 plot(counties)
+plot(wbd, add = TRUE)
 ```
 
 ## Urbanized Areas
@@ -110,9 +114,13 @@ U.S. Census designated urban areas from the 2020 U.S. Census.
 
 ```{r}
 ua <- download_urban_areas(dem)
-plot(ua)
+plot(wbd)
+plot(ua, col = "red", alpha = 0.5, add = TRUE)
 ```
 
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+## NPDES Permits
+
+
+
 

@@ -1,4 +1,5 @@
 
+<!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # SELECTRdata
@@ -82,6 +83,7 @@ buildings <- download_buildings(template = dem)
 #> Iterating ■■■■■■■■■ 25% | ETA: 3sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:
 #> 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
 plot(buildings)
+plot(wbd, add = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
@@ -93,6 +95,7 @@ Includes housing unit and population data.
 ``` r
 cen_blocks <- download_census_blocks(dem, "2020")
 plot(cen_blocks, "P0010001")
+plot(wbd, col = "white", alpha = 0.5, add = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
@@ -104,6 +107,7 @@ County boundaries cropped to coastlines.
 ``` r
 counties <- download_counties(dem)
 plot(counties)
+plot(wbd, add = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
@@ -114,10 +118,10 @@ U.S. Census designated urban areas from the 2020 U.S. Census.
 
 ``` r
 ua <- download_urban_areas(dem)
-plot(ua)
+plot(wbd)
+plot(ua, col = "red", alpha = 0.5, add = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+## NPDES Permits
