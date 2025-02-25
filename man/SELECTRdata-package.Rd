@@ -8,6 +8,13 @@
 \description{
 Provides convienence functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool ('SELECT') to characterize landscape based pollutant sources (\url{https://tx.select.tamu.edu}). Methodology based on Teague et al. (2009) \doi{10.13031/2013.27788}.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://txwri.github.io/SELECTRdata/}
+}
+
+}
 \author{
 \strong{Maintainer}: Michael Schramm \email{mpschramm@gmail.com} (\href{https://orcid.org/0000-0003-1876-6592}{ORCID})
 
