@@ -28,8 +28,13 @@ download_NPDES_permits <- function(template,
 
   ## get bbox of the template. need lat, lons in decimal degrees
   ## create a bbox object from DEM
+  ## note, we transform first bbox to sfc
+  ## because the gdal method for transforming a bbox is not available
+  ## on some gdal builds resulting in build errors (I believe on GDAL 3.10.1)
   bounds <- sf::st_bbox(template)
+  bounds <- sf::st_as_sfc(bounds)
   bounds <- sf::st_transform(bounds, 4326)
+  bounds <- sf::st_bbox(bounds)
 
   p_c1lat <- bounds[["ymin"]]
   p_c1lon <- bounds[["xmin"]]
