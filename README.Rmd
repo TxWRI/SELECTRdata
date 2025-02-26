@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/TxWRI/SELECTRdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TxWRI/SELECTRdata/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/TxWRI/SELECTRdata/branch/main/graph/badge.svg)](https://app.codecov.io/gh/TxWRI/SELECTRdata?branch=main)
+[![SELECTRdata status badge](https://txwri.r-universe.dev/SELECTRdata/badges/version)](https://txwri.r-universe.dev/SELECTRdata)
 <!-- badges: end -->
 
 SELECTRdata provides convenience functions for downloading raster and tabular
