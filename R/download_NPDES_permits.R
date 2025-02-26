@@ -96,6 +96,7 @@ download_NPDES_permits <- function(template,
     httr2::resp_body_string(encoding = "UTF-8")
 
   points <- terra::vect(body)
+  points <- terra::project(points, template)
 
   terra::writeVector(points,
                      filename = output)
