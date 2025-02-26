@@ -74,9 +74,8 @@ download_NPDES_permits <- function(template,
                      p_pstat = permit_status
                      )
 
-  body <- req |>
-    httr2::req_perform() |>
-    httr2::resp_body_json()
+  body <- httr2::req_perform(req)
+  body <- httr2::resp_body_json(body)
 
   rows <- as.integer(body$Results$QueryRows)
   QID <- body$Results$QueryID
