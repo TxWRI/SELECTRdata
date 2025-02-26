@@ -91,11 +91,11 @@ download_NPDES_permits <- function(template,
   ## use qid returned by first request to download a geojson
   req <- requestECHO(resource = "cwa_rest_services.get_geojson",
                      qid = QID)
-  body <- req |>
-    httr2::req_perform() |>
-    httr2::resp_body_string(encoding = "UTF-8")
+  body <- httr2::req_perform(req)
+  body <- httr2::resp_body_string(body, encoding = "UTF-8")
 
   points <- terra::vect(body)
+  points <- terra::project(points, template)
 
   terra::writeVector(points,
                      filename = output)
