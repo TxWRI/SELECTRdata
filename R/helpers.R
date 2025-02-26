@@ -113,11 +113,11 @@ has_nass_token <- function() {
 
 catch_arcgislayer_error <- function(furl) {
 
-  resp_string <- arcgisutils::arc_base_req(furl) |>
-    httr2::req_url_query(f = "json") |>
-    httr2::req_perform() |>
-    httr2::resp_body_json(check_type = FALSE) |>
-    capture_error_message()
+  resp_string <- arcgisutils::arc_base_req(furl)
+  resp_string <-  httr2::req_url_query(resp_string, f = "json")
+  resp_string <-  httr2::req_perform(resp_string)
+  resp_string  <- httr2::resp_body_json(resp_string, check_type = FALSE)
+  resp_string <- capture_error_message(resp_string)
 
   if(is.null(resp_string)) {
     invisible(NULL)
