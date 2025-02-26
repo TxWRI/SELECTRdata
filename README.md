@@ -12,6 +12,8 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![R-CMD-check](https://github.com/TxWRI/SELECTRdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TxWRI/SELECTRdata/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/TxWRI/SELECTRdata/branch/main/graph/badge.svg)](https://app.codecov.io/gh/TxWRI/SELECTRdata?branch=main)
+[![SELECTRdata status
+badge](https://txwri.r-universe.dev/SELECTRdata/badges/version)](https://txwri.r-universe.dev/SELECTRdata)
 <!-- badges: end -->
 
 SELECTRdata provides convenience functions for downloading raster and
@@ -23,7 +25,9 @@ Structures](https://disasters.geoplatform.gov/USA_Structures/) - [Census
 Blocks](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html) -
 [TIGER County
 Boundaries](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html) -
-[USDA Agricultural Census](https://www.nass.usda.gov/)
+[USDA Agricultural Census](https://www.nass.usda.gov/) - [EPA NPDES
+Permits](https://echo.epa.gov/) - [U.S. Census Bureau Urbanized
+Areas](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html)
 
 Sources to add: - Point sources (via ECHO or echor) - MS4 urbanized
 areas (via US Census)
@@ -33,7 +37,7 @@ areas (via US Census)
 You can install the development version of SELECTRdata like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+install.packages("SELECTRdata", repos = c("https://txwri.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 ## Example
@@ -125,3 +129,12 @@ plot(ua, col = "red", alpha = 0.5, add = TRUE)
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ## NPDES Permits
+
+``` r
+npdes <- download_NPDES_permits(dem)
+#> ℹ Query returned 3 results!
+plot(wbd)
+plot(npdes, add = TRUE)
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
