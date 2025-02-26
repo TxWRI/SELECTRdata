@@ -13,7 +13,7 @@ Protection Agency (EPA) National Hydrography Dataset Plus (NHDPlus) dataset.
 \examples{
 \donttest{
 gpkg <- system.file("extdata", "thompsoncreek.gpkg", package = "SELECTRdata")
-terra::vect(gpkg, layer = "wbd")
+wbd <- terra::vect(gpkg, layer = "wbd")
 }
 }
 \seealso{
