@@ -168,9 +168,9 @@ requestECHO <- function(resource, ...) {
     ...
   )
 
-  httr2::request("https://echodata.epa.gov/echo") |>
-    httr2::req_url_path_append(resource) |>
-    httr2::req_url_query(!!!params)
+  request <- httr2::request("https://echodata.epa.gov/echo")
+  request <-  httr2::req_url_path_append(request, resource)
+  request <-  httr2::req_url_query(request, !!!params)
 
 
 }
