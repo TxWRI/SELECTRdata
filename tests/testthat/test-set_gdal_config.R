@@ -19,3 +19,9 @@ test_that("set_gdal_config works", {
   testthat::expect_no_match(terra::getGDALconfig(param),
                          value)
 })
+
+
+test_that("gdal checks work", {
+  testthat::expect_error(check_terra_gdal_config())
+  testthat::expect_error(check_gdalraster_gdal_config())
+})
