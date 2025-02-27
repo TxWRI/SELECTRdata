@@ -26,6 +26,9 @@ download_NPDES_permits <- function(template,
                                    permit_status = "EFF",
                                    output = tempfile(fileext = ".gpkg")) {
 
+  ## check that DEM is SpatRaster
+  check_spat_ras(template)
+
   ## get bbox of the template. need lat, lons in decimal degrees
   ## create a bbox object from DEM
   ## note, we transform first bbox to sfc
