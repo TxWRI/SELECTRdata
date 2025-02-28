@@ -13,6 +13,10 @@ test_that("nass_token works", {
                      {
                        nass_token <- has_nass_token()
                        testthat::expect_equal(nass_token, FALSE)
+
+                       testthat::expect_error(download_nass_livestock(state_alpha = "TX",
+                                                                      county_name = "Brazos",
+                                                                      year = "2022"))
                      })
 })
 
