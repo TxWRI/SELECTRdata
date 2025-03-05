@@ -27,6 +27,7 @@ SELECTRdata provides convenience functions for downloading raster and tabular
 data used in the Spatially Explicit Load Enrichment Calculation Tool (SELECT).
 By providing a SpatRaster object of the target watershed, functions are available
 to download cropped:
+
 - [National Land Cover Dataset](https://www.mrlc.gov/)
 - [FEMA USA Structures](https://disasters.geoplatform.gov/USA_Structures/)
 - [Census Blocks](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html)
@@ -35,9 +36,6 @@ to download cropped:
 - [EPA NPDES Permits](https://echo.epa.gov/)
 - [U.S. Census Bureau Urbanized Areas](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html)
 
-Sources to add:
-- Point sources (via ECHO or echor)
-- MS4 urbanized areas (via US Census)
 
 ## Installation
 
