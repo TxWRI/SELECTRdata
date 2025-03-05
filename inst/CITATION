@@ -1,0 +1,72 @@
+bibentry(
+  bibtype  = "Misc",
+  title    = "{SELECTRdata}",
+  author   = c(person(given = "Michael", family = "Schramm", email = "mpschramm@gmail.com")),
+  instution = "Texas Water Resources Institute",
+  year     = "2025",
+  url = "https://github.com/TxWRI/SELECTRdata",
+  header = "For the SELECTRdata package please cite as:"
+)
+
+bibentry(
+  header = "For data generated with 'download_buildings()', please cite as:",
+  bibtype = "Misc",
+  title = "USA Structures",
+  author = person("United States Federal Emergency Managment Agency"),
+  year = "2023",
+  url = "https://gis-fema.hub.arcgis.com/pages/usa-structures"
+)
+
+bibentry(
+  header = "For data generated with 'download_census_blocks()', please cite as:",
+  bibtype = "Misc",
+  title = "2020 Census Demographic and Housing Characteristics",
+  author = person("United States Census Bureau"),
+  year = "2023",
+  url = "https://www.census.gov/data/tables/2023/dec/2020-census-dhc.html"
+)
+
+bibentry(
+  header = "For data generated with 'download_counties()', please cite as:",
+  bibtype = "Misc",
+  title = "U.S. Census County (or County Equivalent) Boundaries from 2023 Census Tiger/Line Data",
+  author = person("United States Census Bureau"),
+  year = "2023",
+  url = "https://www2.census.gov/geo/tiger/TIGER2023/COUNTY/"
+)
+
+bibentry(
+  header = "For data generated with 'download_NASS()', please cite as:",
+  bibtype = "Manual",
+  title = "{rnassqs}: Access the NASS 'Quick Stats' API",
+  author = c(person("Nicholas A.", "Potter")),
+  year = 2023,
+  url = "https://CRAN.R-project.org/package=rnassqs"
+)
+
+bibentry(
+  header = "For data generated with 'download_nlcd()', please cite as:",
+  bibtype = "Manual",
+  title = "Annual National Land Cover Database (NLCD) Collection 1 Science Product User Guide",
+  author = person("United States Geological Survey"),
+  year = "2024",
+  url = "https://www.mrlc.gov/sites/default/files/docs/LSDS-2103%20Annual%20National%20Land%20Cover%20Database%20(NLCD)%20Collection%201%20Science%20Product%20User%20Guide%20-v1.0%202024_10_15.pdf"
+)
+
+bibentry(
+  header = "For data generated with 'download_NPDES_permits()', please cite as:",
+  bibtype = "Misc",
+  title = "Enforcemnt and Compliance History Online",
+  author = person("United States Environmental Protection Agency"),
+  year = "2025",
+  url = "https://echo.epa.gov/"
+)
+
+bibentry(
+  header = "For data generated with `download_urban_areas()' please cite as:",
+  bibtype = "Misc",
+  title = "2020 Census Urban Areas",
+  author = person("United States Census Bureau"),
+  year = "2023",
+  url = "https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html"
+)

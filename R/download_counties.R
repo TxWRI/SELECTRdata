@@ -8,10 +8,6 @@
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
 #' @export
-#' @importFrom arcgislayers arc_open arc_select get_layer
-#' @importFrom cli cli_alert_info
-#' @importFrom sf st_bbox
-#' @importFrom terra project vect writeVector
 #'
 #' @examples
 #' # example code

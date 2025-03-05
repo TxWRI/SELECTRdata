@@ -10,11 +10,6 @@
 #'
 #' @return SpatVector object
 #' @export
-#' @importFrom cli cli_inform
-#' @importFrom httr2 req_perform resp_body_string resp_body_json
-#' @importFrom sf st_bbox st_transform
-#' @importFrom rlang arg_match
-#' @importFrom terra vect
 #'
 #' @examples
 #' dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")

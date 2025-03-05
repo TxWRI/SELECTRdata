@@ -19,18 +19,19 @@ badge](https://txwri.r-universe.dev/SELECTRdata/badges/version)](https://txwri.r
 SELECTRdata provides convenience functions for downloading raster and
 tabular data used in the Spatially Explicit Load Enrichment Calculation
 Tool (SELECT). By providing a SpatRaster object of the target watershed,
-functions are available to download cropped: - [National Land Cover
-Dataset](https://www.mrlc.gov/) - [FEMA USA
-Structures](https://disasters.geoplatform.gov/USA_Structures/) - [Census
-Blocks](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html) -
-[TIGER County
-Boundaries](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html) -
-[USDA Agricultural Census](https://www.nass.usda.gov/) - [EPA NPDES
-Permits](https://echo.epa.gov/) - [U.S. Census Bureau Urbanized
-Areas](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html)
+functions are available to download cropped:
 
-Sources to add: - Point sources (via ECHO or echor) - MS4 urbanized
-areas (via US Census)
+- [National Land Cover Dataset](https://www.mrlc.gov/)
+- [FEMA USA
+  Structures](https://disasters.geoplatform.gov/USA_Structures/)
+- [Census
+  Blocks](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html)
+- [TIGER County
+  Boundaries](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html)
+- [USDA Agricultural Census](https://www.nass.usda.gov/)
+- [EPA NPDES Permits](https://echo.epa.gov/)
+- [U.S. Census Bureau Urbanized
+  Areas](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html)
 
 ## Installation
 
@@ -85,7 +86,7 @@ buildings <- download_buildings(template = dem)
 #>   method     from    
 #>   print.json jsonlite
 #> Iterating ■■■■■■■■■ 25% | ETA: 4sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:
-#> 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
+#> 3sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
 plot(buildings)
 plot(wbd, add = TRUE)
 ```
