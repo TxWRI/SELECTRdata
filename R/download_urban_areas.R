@@ -7,10 +7,6 @@
 #' @param output A character file path specifying where the `SpatVector` output object should be written. Defaults to a temporary file.
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
-#' @importFrom arcgislayers arc_open arc_select get_layer
-#' @importFrom cli cli_alert_info
-#' @importFrom sf st_bbox
-#' @importFrom terra project vect writeVector
 #' @export
 #'
 #' @examples

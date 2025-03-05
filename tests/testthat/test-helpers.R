@@ -36,7 +36,7 @@ test_that("check_connectivity works", {
 
 
 
-test_that("check SpatRaster works", {
+test_that("check_spat_ras works", {
   x <- terra::rast(nrows=108, ncols=21, xmin=0, xmax=10)
   out <- expect_invisible(check_spat_ras(x))
   testthat::expect_null(out)
@@ -49,7 +49,7 @@ test_that("check SpatRaster works", {
              cbind(object=3, part=1, x2, hole=0), cbind(object=3, part=1, hole, hole=1))
   colnames(z)[3:4] <- c('x', 'y')
 
-  x <- vect(z, "polygons")
+  x <- terra::vect(z, "polygons")
   testthat::expect_error(check_spat_ras(x))
 
 })

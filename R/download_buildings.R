@@ -9,9 +9,6 @@
 #'
 #' @return A `SpatVector` or `sf` object with extents matching the `SpatRaster` object provided in the `template` argument. If API resources are not available an invisible `NULL` is returned.
 #' @export
-#' @importFrom arcgislayers arc_open arc_select get_layer
-#' @importFrom sf st_bbox st_crs st_transform
-#' @importFrom terra project vect writeVector
 #' @examples
 #' \donttest{
 #' ## This example requires an internet connection to run
@@ -67,7 +64,7 @@ download_buildings <- function(template,
                        filename = output)
     return(terra::vect(output))
   } else {
-    buildings_sf <- sf::st_transform(buildings_sf, st_crs(template))
+    buildings_sf <- sf::st_transform(buildings_sf, sf::st_crs(template))
     return(buildings_sf)
   }
 }

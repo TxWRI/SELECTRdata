@@ -15,9 +15,6 @@
 #' @param ... additional arguments for for writing files, see `terra::writeRaster()`
 #'
 #' @return A SpatRaster object with file written to `output`
-#' @importFrom rlang arg_match
-#' @importFrom gdalraster vsi_read_dir
-#' @importFrom terra crop crs ext project rast
 #' @export
 
 download_nlcd       <- function(template,
