@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">SELECTRdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -49,8 +50,16 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>SELECTRdata provides convenience functions for downloading raster and tabular data used in the Spatially Explicit Load Enrichment Calculation Tool (SELECT). By providing a SpatRaster object of the target watershed, functions are available to download cropped: - <a href="https://www.mrlc.gov/" class="external-link">National Land Cover Dataset</a> - <a href="https://disasters.geoplatform.gov/USA_Structures/" class="external-link">FEMA USA Structures</a> - <a href="https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html" class="external-link">Census Blocks</a> - <a href="https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html" class="external-link">TIGER County Boundaries</a> - <a href="https://www.nass.usda.gov/" class="external-link">USDA Agricultural Census</a> - <a href="https://echo.epa.gov/" class="external-link">EPA NPDES Permits</a> - <a href="https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html" class="external-link">U.S. Census Bureau Urbanized Areas</a></p>
-<p>Sources to add: - Point sources (via ECHO or echor) - MS4 urbanized areas (via US Census)</p>
+<p>SELECTRdata provides convenience functions for downloading raster and tabular data used in the Spatially Explicit Load Enrichment Calculation Tool (SELECT). By providing a SpatRaster object of the target watershed, functions are available to download cropped:</p>
+<ul>
+<li><a href="https://www.mrlc.gov/" class="external-link">National Land Cover Dataset</a></li>
+<li><a href="https://disasters.geoplatform.gov/USA_Structures/" class="external-link">FEMA USA Structures</a></li>
+<li><a href="https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html" class="external-link">Census Blocks</a></li>
+<li><a href="https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html" class="external-link">TIGER County Boundaries</a></li>
+<li><a href="https://www.nass.usda.gov/" class="external-link">USDA Agricultural Census</a></li>
+<li><a href="https://echo.epa.gov/" class="external-link">EPA NPDES Permits</a></li>
+<li><a href="https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html" class="external-link">U.S. Census Bureau Urbanized Areas</a></li>
+</ul>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -102,7 +111,7 @@
 <span><span class="co">#&gt;   method     from    </span></span>
 <span><span class="co">#&gt;   print.json jsonlite</span></span>
 <span><span class="co">#&gt; Iterating ■■■■■■■■■ 25% | ETA: 4sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:</span></span>
-<span><span class="co">#&gt; 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s</span></span>
+<span><span class="co">#&gt; 3sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">buildings</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
