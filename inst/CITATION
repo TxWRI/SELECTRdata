@@ -46,11 +46,11 @@ bibentry(
 
 bibentry(
   header = "For data generated with 'download_nlcd()', please cite as:",
-  bibtype = "Manual",
-  title = "Annual National Land Cover Database (NLCD) Collection 1 Science Product User Guide",
+  bibtype = "Misc",
+  title = "Annual National Land Cover Database (NLCD) Collection 1 Science Products: U.S. Geological Survey data release",
   author = person("United States Geological Survey"),
   year = "2024",
-  url = "https://www.mrlc.gov/sites/default/files/docs/LSDS-2103%20Annual%20National%20Land%20Cover%20Database%20(NLCD)%20Collection%201%20Science%20Product%20User%20Guide%20-v1.0%202024_10_15.pdf"
+  doi = "10.5066/P94UXNTS"
 )
 
 bibentry(
