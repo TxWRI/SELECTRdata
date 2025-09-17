@@ -65,6 +65,16 @@ check_terra_gdal_config <- function(call = rlang::caller_env()) {
 }
 
 
+check_is_extent <- function(x,
+                            arg = rlang::caller_arg(x),
+                            call = rlang::caller_env()) {
+  if(!inherits(x, "SpatExtent")) {
+    cli::cli_abort(c("The object provided to {.arg {arg}} must be a {.cls 'SpatExtent'} object created with {.code terra::ext()}",
+                     "x" = "You've supplied a {.cls {class(x)}} with a value {.val {x}}"),
+                   call = call)
+  }
+}
+
 
 #' nslookup wrapper
 #'
