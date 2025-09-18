@@ -44,11 +44,14 @@ request_mrlc <- function(dataset = "LndCov", ## chr one of LndCov, etc.
 
 
   ## evaluate if the template srs and the nlcd srs are the same
-  ## if not download_nlcd should do something to transform the srs of the extent or template.
   if(!gdalraster::srs_is_same(template_srs,
                               gdalraster::epsg_to_wkt(nlcd_epsg))) {
-
-    ## return some to download_nlcd function indicating the need to project the extent to correct SRS
+    ## project extent to the nlcd_epsg
+    cli::cli_alert("CRS of the template does not match the NLCD. Projecting the extent of the template to {.code {nlcd_epsg}}.",
+                   wrap = TRUE)
+    extent <- project(extent,
+                      from = template_srs,
+                      to = nlcd_epsg)
 
   }
 
