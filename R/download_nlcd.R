@@ -74,55 +74,66 @@ download_nlcd       <- function(template,
   }
 
   ## grab the extent of the template
-  template_crs <- terra::crs(template)
+  template_srs <- terra::crs(template)
   template_ext <- terra::ext(template)
 
+  ##  each request should be called in this function so we can return null if any single one fails...
+  ## choose resources based on dataset
+  resource <- switch(
+    EXPR = dataset,
+    LndCov = "https://dmsdata.cr.usgs.gov/geoserver/mrlc_Land-Cover-Native_conus_year_data/wcs",
+    LndChg = "https://dmsdata.cr.usgs.gov/geoserver/mrlc_Land-Cover-Change-Native_conus_year_data/wcs",
+    LndCnf = "https://dmsdata.cr.usgs.gov/geoserver/mrlc_Land-Cover-Confidence-Native_conus_year_data/wcs",
+    FctImp = "https://dmsdata.cr.usgs.gov/geoserver/mrlc_Factional-Impervious-Surface-Native_conus_year_data/wcs",
+    ImpDsc = "https://dmsdata.cr.usgs.gov/geoserver/mrlc_Impervious-Descriptor-Native_conus_year_data/wcs",
+    SpcChg = "https://dmsdata.cr.usgs.gov/geoserver/mrlc_Spectral-Change-Day-of-Year-Native_conus_year_data/wcs"
+  )
 
-  ## returns the httr2 request
-  ## TODO: wrap in try
-  x <- request_mrlc(dataset = dataset,
-                    year = year,
-                    extent = template_ext,
-                    template_srs = template_crs)
+  ## returns the coverage id in xml
+  coverage <- request_mrlc_cov_id(dataset, resource)
+  if(is.null(coverage)) {
+    return(invisible(NULL))
+    }
 
-  download_path <- tempfile(fileext = ".tif")
-  x_resp <- x |>
-    httr2::req_perform(path = download_path)
 
-  ## TODO: check the output type
+  ## how do we select the right time based on input string year?
+  time <- strptime(paste0(year, "-01-01"),
+                   format = "%Y-%m-%d") |>
+    format("%Y-%m-%dT%TZ")
 
-  ## make into a terra raster
-  nlcd <- terra::rast(download_path)
+  ## returns the NLCD native SRS in string format EPSG:XXXX
+  nlcd_epsg <-request_mrlc_crs(resource,
+                               coverage)
+  nlcd_epsg <- grep("[0-9]",
+                    nlcd_epsg,
+                    value = TRUE)
+  nlcd_epsg <- regmatches(nlcd_epsg,
+                          gregexec("[0-9]",
+                                   nlcd_epsg))[[1]] |>
+    paste0(collapse = "") |>
+    as.integer()
 
-  nlcd <- terra::as.factor(nlcd)
-  level_data <- data.frame(ID = c(11L, 12L, 21L, 22L, 23L, 24L, 31L, 41L, 42L, 43L, 52L, 71L, 81L, 82L, 90L, 95L),
-                           Label = c("Open Water", "Perennial Ice/Snow", "Developed, Open Space", "Developed, Low Intensity", "Developed, Medium Intensity", "Developed, High Intensity", "Barren Land (Rock/Sand/Clay", "Deciduous Forest", "Evergreen Forest", "Mixed Forest", "Shrub/Scrub", "Grassland/Herbaceous", "Pasture/Hay", "Cultivated Crops", "Woody Wetlands", "Emergent Herbaceous Wetlands"))
-  levels(nlcd) <- level_data
+  ## evaluate if the template srs and the nlcd srs are the same
+  if(!gdalraster::srs_is_same(template_srs,
+                              gdalraster::epsg_to_wkt(nlcd_epsg))) {
+    ## project extent to the nlcd_epsg
+    cli::cli_alert("CRS of the template does not match the NLCD. Projecting the extent of the template to {.code {nlcd_epsg}}.",
+                   wrap = TRUE)
+    template_ext <- terra::project(template_ext,
+                                   from = template_srs,
+                                   to = nlcd_epsg)
 
-  outpath <- terra::writeRaster(nlcd, output, ...)
+  }
 
-  outpath
+  ## return terra object or invisible no
+  x <- request_mrlc_download(resource = resource,
+                             extent = template_ext,
+                             coverage = coverage,
+                             time = time,
+                             nlcd_epsg = nlcd_epsg)
+
+  x <- terra::writeRaster(x, output, ...)
+
+  x
 
 }
-
-# gen_s3_path <- function(landmass, year, dataset) {
-#
-#   ## return error if landmass != CU
-#   if(landmass != "CU") {
-#     cli_abort(c(
-#       "{.var landmass} currently only accepts 'CU' until annaulized NLCD products are available for other regions."
-#     ),
-#     call = rlang::caller_env())
-#   }
-#
-#   #nlcd_annual_bucket <- "https://s3-us-west-2.amazonaws.com/mrlc"
-#   collection <- 1
-#   version <- 0
-#
-#   base_url <- paste0("/vsis3/mrlc/")
-#   path_url <- paste0("Annual_NLCD_", dataset, "_", year, "_", landmass, "_C", collection, "V", version, ".tif")
-#
-#   return(paste0(base_url, path_url))
-# }
-
-
