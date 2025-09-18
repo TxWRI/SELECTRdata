@@ -67,7 +67,7 @@ download_nlcd       <- function(template,
 
   ## return error if landmass != CU
   if(landmass != "CU") {
-    cli_abort(c(
+    cli::cli_abort(c(
       "{.var landmass} currently only accepts 'CU' until annaulized NLCD products are available for other regions."
     ),
     call = rlang::caller_env())

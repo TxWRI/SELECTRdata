@@ -7,7 +7,6 @@
 #' @return `TRUE` or message with invisible `NULL`
 #' @keywords internal
 #'
-#' @importFrom cli cli_inform
 check_connectivity <- function(host,
                                call = rlang::caller_env()) {
   ## check connectivity
@@ -19,7 +18,22 @@ check_connectivity <- function(host,
   } else {TRUE}
 }
 
+
+
+#' Check gdalraster AWS signin option
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' No longer used internally by SELECTRdata.
+#' Checks the config options for gdalraster AWS_NO_SIGN_REQUEST != "YES
+#'
+#' @param call environments that define where check_gdalraster_config was called.
+#' @return called for side effect.
+#' @keywords internal
 check_gdalraster_gdal_config <- function(call = rlang::caller_env()) {
+
+  lifecycle::deprecate_soft("0.1.1", "check_gdalraster_config()")
+
   if(gdalraster::get_config_option("AWS_NO_SIGN_REQUEST") != "YES") {
     cli::cli_abort(c("Please set the GDAL configuration in {.pkg gdalraster} with: {.code gdalraster::set_config_options('AWS_NO_SIGN_REQUEST', 'YES')}"),
                    call = call)
@@ -57,7 +71,19 @@ check_string_contains <- function(x,
 
 }
 
+#' Check terra gdalconfig AWS signin option
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' No longer used internally by SELECTRdata.
+#' Checks the config options for terra gdal AWS_NO_SIGN_REQUEST != "YES
+#' @param call environments that define where check_terra_gdal_config was called.
+#'
+#'
+#' @return called for side effect.
+#' @keywords internal
 check_terra_gdal_config <- function(call = rlang::caller_env()) {
+  lifecycle::deprecate_soft("0.1.1", "check_terra_gdal_config()")
   if(terra::getGDALconfig("AWS_NO_SIGN_REQUEST") != "YES") {
     cli::cli_abort(c("Please set the GDAL configuration in {.pkg terra} with: {.code terra::setGDALconfig('AWS_NO_SIGN_REQUEST=YES')}"),
                    call = call)
@@ -83,8 +109,7 @@ check_is_extent <- function(x,
 #'
 #' @return logical value
 #' @keywords internal
-#'
-#' @importFrom curl nslookup
+
 has_internet_2 <- function(host) {
   !is.null(curl::nslookup(host, error = FALSE))
 }
@@ -117,8 +142,6 @@ has_nass_token <- function() {
 #' @param furl the base url.
 #'
 #' @return character message or invisible `NULL`
-#' @importFrom arcgisutils arc_base_req
-#' @importFrom httr2 req_url_query req_perform resp_body_json
 #' @keywords internal
 
 catch_arcgislayer_error <- function(furl) {
@@ -168,8 +191,6 @@ capture_error_message <- function(resp_string) {
 #'
 #' @param resource Character vector, specifies API path to ECHO's webservices
 #' @param ... Character vector, specifies the parameters sent in the GET request
-#' @importFrom httr2 request req_url_path_append req_url_query
-#' @importFrom rlang !!!
 #' @keywords internal
 #' @noRd
 requestECHO <- function(resource, ...) {

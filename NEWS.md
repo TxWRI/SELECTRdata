@@ -1,3 +1,9 @@
+# SELECTRdata 0.1.1 (2025-10-01)
+
+## Bug Fixes
+
+  *  NLCD endpoint updated to the WCS geoserver, the S3 service used by the package was removed.
+
 # SELECTRdata 0.1.0 (2025-03-05)
 
 ## New Features
