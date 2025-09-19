@@ -98,8 +98,8 @@ download_nlcd       <- function(template,
 
   ## how do we select the right time based on input string year?
   time <- strptime(paste0(year, "-01-01"),
-                   format = "%Y-%m-%d") |>
-    format("%Y-%m-%dT%TZ")
+                   format = "%Y-%m-%d")
+  time <- format(time, "%Y-%m-%dT%TZ")
 
   ## returns the NLCD native SRS in string format EPSG:XXXX
   nlcd_epsg <-request_mrlc_crs(resource,
@@ -109,9 +109,9 @@ download_nlcd       <- function(template,
                     value = TRUE)
   nlcd_epsg <- regmatches(nlcd_epsg,
                           gregexec("[0-9]",
-                                   nlcd_epsg))[[1]] |>
-    paste0(collapse = "") |>
-    as.integer()
+                                   nlcd_epsg))[[1]]
+  nlcd_epsg <- paste0(nlcd_epsg, collapse = "")
+  nlcd_epsg <- as.integer(nlcd_epsg)
 
   ## evaluate if the template srs and the nlcd srs are the same
   if(!gdalraster::srs_is_same(template_srs,

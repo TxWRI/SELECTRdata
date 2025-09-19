@@ -13,10 +13,10 @@ request_mrlc_cov_id <- function(dataset,
 
   ## check status code and return message if status != 200
 
-  req <- httr2::request(resource) |>
-    httr2::req_url_query(!!!query_list) |>
-    httr2::req_error(is_error = ~ FALSE) |>
-    httr2::req_perform()
+  req <- httr2::request(resource)
+  req <- httr2::req_url_query(req, !!!query_list)
+  req <- httr2::req_error(req, is_error = ~ FALSE)
+  req <- httr2::req_perform(req)
 
   if(httr2::resp_is_error(req)) {
     cli::cli_alert_danger(httr2::resp_status_desc(req))
@@ -24,9 +24,8 @@ request_mrlc_cov_id <- function(dataset,
   }
 
 
-  req <- req |>
-    httr2::resp_body_xml() |>
-    xml2::as_list()
+  req <- httr2::resp_body_xml(req)
+  req <- xml2::as_list(req)
 
   return(req$WCS_Capabilities$ContentMetadata$CoverageOfferingBrief$name[[1]])
 
@@ -46,11 +45,11 @@ request_mrlc_crs <- function(resource,
     COVERAGE = coverage
   )
   ## check status code and return message if status != 200
-  req <- httr2::request(resource) |>
-    httr2::req_url_query(!!!query_list) |>
-    httr2::req_perform() |>
-    httr2::resp_body_xml(check_type = FALSE) |>
-    xml2::as_list()
+  req <- httr2::request(resource)
+  req <- httr2::req_url_query(req, !!!query_list)
+  req <- httr2::req_perform(req)
+  req <- httr2::resp_body_xml(req, check_type = FALSE)
+  req <- xml2::as_list(req)
 
   nlcd_crs <- req$CoverageDescription$CoverageOffering$supportedCRSs$requestResponseCRSs[[1]]
 
@@ -93,14 +92,13 @@ request_mrlc_download <- function(resource,
     FORMAT = "image/geotiff",
     REQUEST = "GetCoverage")
 
-  req <- httr2::request(resource) |>
-    httr2::req_url_query(!!!query_list)
+  req <- httr2::request(resource)
+  req <- httr2::req_url_query(req, !!!query_list)
 
   download_path <- tempfile(fileext = ".tif")
 
 
-  x_resp <- req |>
-    httr2::req_perform(path = download_path)
+  x_resp <- httr2::req_perform(req, path = download_path)
 
   ## to do, check http status and return msg and invisible null as needed
 
@@ -108,9 +106,8 @@ request_mrlc_download <- function(resource,
   ## else move on to loading raster as terra rast object
 
   if(httr2::resp_content_type(x_resp) != "image/tiff") {
-    msg <- x_resp |>
-      httr2::resp_body_xml(check_type = FALSE) |>
-      xml2::as_list()
+    msg <- httr2::resp_body_xml(x_resp, check_type = FALSE)
+    msg <- xml2::as_list(msg)
     cli::cli_alert(msg)
     return(invisible(NULL))
   }
