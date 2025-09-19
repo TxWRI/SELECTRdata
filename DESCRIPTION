@@ -6,7 +6,7 @@ Version: 0.1.1
 Authors@R: 
     person("Michael", "Schramm", , "mpschramm@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-1876-6592"))
-Description: Provides convienence functions for downloading raster and
+Description: Provides convenience functions for downloading raster and
     tabular data used by Spatially Explicit Load Enrichment Calculation
     Tool ('SELECT') to characterize landscape based pollutant sources
     (<https://tx.select.tamu.edu>).  Methodology based on Teague et al.
