@@ -9,6 +9,8 @@
 <url><loc>https://txwri.github.io/SELECTRdata/reference/catch_arcgislayer_error.html</loc></url>
 <url><loc>https://txwri.github.io/SELECTRdata/reference/check_census_year.html</loc></url>
 <url><loc>https://txwri.github.io/SELECTRdata/reference/check_connectivity.html</loc></url>
+<url><loc>https://txwri.github.io/SELECTRdata/reference/check_gdalraster_gdal_config.html</loc></url>
+<url><loc>https://txwri.github.io/SELECTRdata/reference/check_terra_gdal_config.html</loc></url>
 <url><loc>https://txwri.github.io/SELECTRdata/reference/download_NPDES_permits.html</loc></url>
 <url><loc>https://txwri.github.io/SELECTRdata/reference/download_buildings.html</loc></url>
 <url><loc>https://txwri.github.io/SELECTRdata/reference/download_census_blocks.html</loc></url>

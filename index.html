@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Download and Format Spatially Explicit Load Enrichment Calculation Tool (SELECT) Data">
-<meta name="description" content="Provides convienence functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool (SELECT) to characterize landscape based pollutant sources (&lt;https://tx.select.tamu.edu&gt;). Methodology based on Teague et al. (2009) &lt;doi:10.13031/2013.27788&gt;.">
-<meta property="og:description" content="Provides convienence functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool (SELECT) to characterize landscape based pollutant sources (&lt;https://tx.select.tamu.edu&gt;). Methodology based on Teague et al. (2009) &lt;doi:10.13031/2013.27788&gt;.">
+<meta name="description" content="Provides convenience functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool (SELECT) to characterize landscape based pollutant sources (&lt;https://tx.select.tamu.edu&gt;). Methodology based on Teague et al. (2009) &lt;doi:10.13031/2013.27788&gt;.">
+<meta property="og:description" content="Provides convenience functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool (SELECT) to characterize landscape based pollutant sources (&lt;https://tx.select.tamu.edu&gt;). Methodology based on Teague et al. (2009) &lt;doi:10.13031/2013.27788&gt;.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">SELECTRdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,11 +90,7 @@
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html" class="external-link">mask</a></span><span class="op">(</span><span class="va">dem</span>, <span class="va">wbd</span>,</span>
 <span>                   filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".tif"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## set the following GDAL options to connect to</span></span>
-<span><span class="co">## MRLC's AWS S3 bucket</span></span>
-<span><span class="fu"><a href="reference/set_gdal_config.html">set_gdal_config</a></span><span class="op">(</span><span class="st">"AWS_NO_SIGN_REQUEST"</span>, <span class="st">"YES"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## download the NLCD file cropped to the extents of the watershed</span></span>
+<code class="sourceCode R"><span><span class="co">## download the NLCD file cropped to the extents of the watershed</span></span>
 <span><span class="va">nlcd</span> <span class="op">&lt;-</span> <span class="fu">SELECTRdata</span><span class="fu">::</span><span class="fu"><a href="reference/download_nlcd.html">download_nlcd</a></span><span class="op">(</span>template <span class="op">=</span> <span class="va">dem</span>, </span>
 <span>                                   overwrite <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                   progress <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -110,8 +106,9 @@
 <span><span class="co">#&gt; Registered S3 method overwritten by 'jsonify':</span></span>
 <span><span class="co">#&gt;   method     from    </span></span>
 <span><span class="co">#&gt;   print.json jsonlite</span></span>
-<span><span class="co">#&gt; Iterating ■■■■■■■■■ 25% | ETA: 4sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:</span></span>
-<span><span class="co">#&gt; 3sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s</span></span>
+<span><span class="co">#&gt; Iterating ■■■■■ 12% | ETA: 19sIterating ■■■■■■■■■ 25% | ETA: 11sIterating</span></span>
+<span><span class="co">#&gt; ■■■■■■■■■■■■■■■■ 50% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA:</span></span>
+<span><span class="co">#&gt; 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 1s</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">buildings</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
@@ -177,7 +174,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Michael Schramm <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1876-6592" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Michael Schramm <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1876-6592" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 </ul>
 </div>
 
@@ -200,7 +197,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
