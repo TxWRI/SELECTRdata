@@ -47,7 +47,7 @@ test_that("get_nlcd and friends correctly handle 400 and 500 web responses",{
 
   ## returns 202 but with xml message and not requested tif file
   mock_content <- function(req) {
-    httr2::response(status_code = 202,
+    httr2::response(status_code = 200,
              headers = c("Content-Type: application/xml"),
              body = '<?xml version="1.0" encoding="UTF-8"?><ows:ExceptionReport xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0.0" xsi:schemaLocation="http://www.opengis.net/ows/2.0 http://schemas.opengis.net/ows/2.0/owsExceptionReport.xsd">
   <ows:Exception exceptionCode="NoApplicableCode">
