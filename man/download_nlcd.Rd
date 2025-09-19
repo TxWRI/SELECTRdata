@@ -18,11 +18,11 @@ download_nlcd(
 \arguments{
 \item{template}{A SpatRaster object defining the spatial extent of the returned NLCD raster.}
 
-\item{year}{character, expects a value between \code{1986:2023}.}
+\item{year}{character, expects a value between \code{1986:2024}.}
 
-\item{dataset}{Character. Expects \code{c("LndCov","LndChg","LndCnf","FctImp","ImpDsc","SpcChg")}.}
+\item{dataset}{Character. Expects \code{c("LndCov","LndChg","LndCnf","FctImp","ImpDsc","SpcChg")}. Only \code{"LndCov"} is supported at this time.}
 
-\item{landmass}{Character, one of: \code{c("CU", "AK", "HI")}.}
+\item{landmass}{Depreciated. Character, one of: \code{c("CU", "AK", "HI")}.}
 
 \item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
 
@@ -37,4 +37,13 @@ A SpatRaster object with file written to \code{output}
 }
 \description{
 Downloads and writes an NLCD SpatRaster to file with extents defined by \code{template}. This function downloads the annualized NLCD data products. See \url{https://www.mrlc.gov/data/project/annual-nlcd} for more information.
+}
+\examples{
+\donttest{
+## This example requires an internet connection to run
+dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+dem <- terra::rast(dem)
+download_nlcd(template = dem, year = "2024")
+}
+
 }

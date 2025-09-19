@@ -63,10 +63,6 @@ dem <- terra::mask(dem, wbd,
 ```
 
 ``` r
-## set the following GDAL options to connect to
-## MRLC's AWS S3 bucket
-set_gdal_config("AWS_NO_SIGN_REQUEST", "YES")
-
 ## download the NLCD file cropped to the extents of the watershed
 nlcd <- SELECTRdata::download_nlcd(template = dem, 
                                    overwrite = TRUE,
@@ -85,8 +81,9 @@ buildings <- download_buildings(template = dem)
 #> Registered S3 method overwritten by 'jsonify':
 #>   method     from    
 #>   print.json jsonlite
-#> Iterating ■■■■■■■■■ 25% | ETA: 4sIterating ■■■■■■■■■■■■■■■■ 50% | ETA:
-#> 3sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s
+#> Iterating ■■■■■ 12% | ETA: 19sIterating ■■■■■■■■■ 25% | ETA: 11sIterating
+#> ■■■■■■■■■■■■■■■■ 50% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA:
+#> 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 1s
 plot(buildings)
 plot(wbd, add = TRUE)
 ```

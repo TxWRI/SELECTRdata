@@ -1,31 +1,35 @@
-Package: SELECTRdata
 Type: Package
-Title: Download and Format Spatially Explicit Load Enrichment Calculation Tool ('SELECT') Data
-Version: 0.1.0
+Package: SELECTRdata
+Title: Download and Format Spatially Explicit Load Enrichment Calculation
+    Tool ('SELECT') Data
+Version: 0.1.1
 Authors@R: 
-    person(given = "Michael", family = "Schramm", email = "mpschramm@gmail.com", role = c("aut", "cre"),
+    person("Michael", "Schramm", , "mpschramm@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-1876-6592"))
-Description: Provides convienence functions for downloading raster and tabular
-    data used by Spatially Explicit Load Enrichment Calculation Tool ('SELECT')
-    to characterize landscape based pollutant sources (<https://tx.select.tamu.edu>).
-    Methodology based on Teague et al. (2009) <doi:10.13031/2013.27788>.
+Description: Provides convenience functions for downloading raster and
+    tabular data used by Spatially Explicit Load Enrichment Calculation
+    Tool ('SELECT') to characterize landscape based pollutant sources
+    (<https://tx.select.tamu.edu>).  Methodology based on Teague et al.
+    (2009) <doi:10.13031/2013.27788>.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
+URL: https://txwri.github.io/SELECTRdata/
 Imports:
-  arcgislayers,
-  arcgisutils,
-  cli,
-  curl,
-  gdalraster,
-  httr2,
-  rlang,
-  rnassqs,
-  sf,
-  terra
-RoxygenNote: 7.3.1
+    arcgislayers,
+    arcgisutils,
+    cli,
+    curl,
+    gdalraster,
+    httr2,
+    lifecycle,
+    rlang,
+    rnassqs,
+    sf,
+    terra,
+    xml2
 Suggests: 
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
-URL: https://txwri.github.io/SELECTRdata/
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
