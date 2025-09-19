@@ -6,7 +6,7 @@
 \alias{SELECTRdata-package}
 \title{SELECTRdata: Download and Format Spatially Explicit Load Enrichment Calculation Tool ('SELECT') Data}
 \description{
-Provides convienence functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool ('SELECT') to characterize landscape based pollutant sources (\url{https://tx.select.tamu.edu}). Methodology based on Teague et al. (2009) \doi{10.13031/2013.27788}.
+Provides convenience functions for downloading raster and tabular data used by Spatially Explicit Load Enrichment Calculation Tool ('SELECT') to characterize landscape based pollutant sources (\url{https://tx.select.tamu.edu}). Methodology based on Teague et al. (2009) \doi{10.13031/2013.27788}.
 }
 \seealso{
 Useful links:
