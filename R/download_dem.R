@@ -3,7 +3,7 @@
 #' Downloads a 1/3 arc-second high resolution seamless USGS DEM raster. Standard DEMs represent the topographic surface of the earth and contain flattened water surfaces.
 #'
 #' @param x Either a SpatVector, SpatRaster, or SpatExtent. Or object that a SpatExtent can be retrieved from.
-#' @param srs character in <auth>:<code> format of the spatial reference system used in `x` if it is a SpatExtent object. Defaults NULL, can be left NULL if x is a SpatVector or SpatRaster.
+#' @param srs character in `<auth>:<code>` format of the spatial reference system used in `x` if it is a SpatExtent object. Defaults NULL, can be left NULL if x is a SpatVector or SpatRaster.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
 #'
 #' @return A SpatRaster object.

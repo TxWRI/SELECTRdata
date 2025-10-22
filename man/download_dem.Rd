@@ -9,7 +9,7 @@ download_dem(x, srs = NULL, output = tempfile(fileext = ".tiff"))
 \arguments{
 \item{x}{Either a SpatVector, SpatRaster, or SpatExtent. Or object that a SpatExtent can be retrieved from.}
 
-\item{srs}{character in \if{html}{\out{<auth>}}:\if{html}{\out{<code>}} format of the spatial reference system used in \code{x} if it is a SpatExtent object. Defaults NULL, can be left NULL if x is a SpatVector or SpatRaster.}
+\item{srs}{character in \verb{<auth>:<code>} format of the spatial reference system used in \code{x} if it is a SpatExtent object. Defaults NULL, can be left NULL if x is a SpatVector or SpatRaster.}
 
 \item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
 }
