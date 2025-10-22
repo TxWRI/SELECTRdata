@@ -1,3 +1,9 @@
+# SELECTRdata 0.1.2 (2025-10-22)
+
+## New Features
+
+  *  Download USGS seamless DEMs with `download_dem()`
+
 # SELECTRdata 0.1.1 (2025-10-01)
 
 ## Bug Fixes

@@ -17,6 +17,7 @@
 #' @importFrom httr2 req_url_query
 #' @importFrom httr2 resp_body_json
 #' @importFrom httr2 resp_body_string
+#' @importFrom httr2 resp_body_xml
 #' @importFrom lifecycle deprecated
 #' @importFrom rlang !!!
 #' @importFrom rlang abort
@@ -34,5 +35,6 @@
 #' @importFrom terra vect
 #' @importFrom terra writeRaster
 #' @importFrom terra writeVector
+#' @importFrom xml2 as_list
 ## usethis namespace: end
 NULL
