@@ -12,7 +12,7 @@ download_census_blocks(
 )
 }
 \arguments{
-\item{template}{A SpatRaster object.}
+\item{template}{A SpatRaster or SpatVector object.}
 
 \item{year}{A character value. Any of the following values should work: \code{c("2000","2010","2020")}.}
 

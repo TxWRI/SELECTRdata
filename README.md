@@ -41,16 +41,41 @@ You can install the development version of SELECTRdata like so:
 install.packages("SELECTRdata", repos = c("https://txwri.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
-## Example
+## Examples
 
-## MRLC National Land Cover Dataset
+### USGS DEM
 
 ``` r
 library(SELECTRdata)
 library(terra)
 #> Warning: package 'terra' was built under R version 4.3.3
-#> terra 1.8.10
+#> terra 1.8.29
 
+## our location of interest
+location_of_interest <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+location_of_interest <- terra::rast(location_of_interest)
+## grab the extent
+extent <- ext(location_of_interest)
+## create a extent or object that an extent and srs
+## can be grabbed
+extent <- vect(extent, crs = crs(location_of_interest))
+## project the extent to something used by USGS Seamless data
+extent <- project(extent, "EPSG:6579")
+## grab the epsg code from our extent
+auth <- crs(extent, describe = TRUE)
+auth <- paste0(auth$authority, ":", auth$code)
+extent <- ext(extent)
+
+## download DEM
+example_dem <- download_dem(x = extent, srs = auth)
+plot(example_dem)
+```
+
+<img src="man/figures/README-dem-1.png" width="100%" />
+
+### MRLC National Land Cover Dataset
+
+``` r
 ## we need a template file, this is the thomsoncreek watershed in Texas
 dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
 dem <- terra::rast(dem)
@@ -81,9 +106,9 @@ buildings <- download_buildings(template = dem)
 #> Registered S3 method overwritten by 'jsonify':
 #>   method     from    
 #>   print.json jsonlite
-#> Iterating ■■■■■ 12% | ETA: 19sIterating ■■■■■■■■■ 25% | ETA: 11sIterating
-#> ■■■■■■■■■■■■■■■■ 50% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA:
-#> 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 1s
+#> Iterating ■■■■■ 12% | ETA: 8sIterating ■■■■■■■■■ 25% | ETA: 6sIterating
+#> ■■■■■■■■■■■■ 38% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■ 62% | ETA: 2sIterating
+#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 0s
 plot(buildings)
 plot(wbd, add = TRUE)
 ```

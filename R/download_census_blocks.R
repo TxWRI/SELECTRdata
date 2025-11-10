@@ -3,7 +3,7 @@
 #' Downloads U.S. Census block boundaries and associated information for
 #' blocks within the spatial extent of the template SpatRaster.
 #'
-#' @param template A SpatRaster object.
+#' @param template A SpatRaster or SpatVector object.
 #' @param year A character value. Any of the following values should work: `c("2000","2010","2020")`.
 #' @param page_size a numeric value passed to `arcgislayers::arcselect()`. Defaults to NULL. Useful when the requests returns a 500 error code.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
@@ -30,8 +30,8 @@ download_census_blocks <- function(template,
   if (!isTRUE(check_connectivity("services.arcgis.com"))) {
     return(invisible(NULL))
   }
-  ## check template if a spatraster
-  check_spat_ras(template)
+  ## check that DEM is SpatRaster or is SpatVector
+  check_terra_spat_obj(template)
 
   ## check years
   year <- rlang::arg_match(year,

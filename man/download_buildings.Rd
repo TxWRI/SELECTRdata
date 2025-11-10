@@ -11,7 +11,7 @@ download_buildings(
 )
 }
 \arguments{
-\item{template}{A SpatRaster object. The extent of the returned object will match \code{template}.}
+\item{template}{A SpatRaster or SpatVector object. The extent of the returned object will match \code{template}.}
 
 \item{return}{A character object, either \code{SpatVector} or \code{sf}. Defaults to \code{SpatVector}.}
 

@@ -12,7 +12,7 @@ download_NPDES_permits(
 )
 }
 \arguments{
-\item{template}{A SpatRaster object.}
+\item{template}{A SpatRaster or SpatVector object. The extent of the returned object will match \code{template}.}
 
 \item{permit_component}{A character vector with one or more of the following: \code{PRE} (pretreatment), \code{CAF} (CAFO), \code{CSO} (CSO), \code{POT} (Publicly Owned Treatment Works, the default), \code{BIO} (Biosolids), \code{SWS} (Stormwater Small MS4), \code{SWM} (Stormwater Medium/Large MS4), \code{SWI} (Stormwater Industrial), \code{SWC} (Stormwater Construction).}
 

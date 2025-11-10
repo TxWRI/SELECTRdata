@@ -3,7 +3,7 @@
 #' Downloads NPDES permits from EPA ECHO API services within the bounds of the
 #' SpatRast template.
 #'
-#' @param template A SpatRaster object.
+#' @param template A SpatRaster or SpatVector object. The extent of the returned object will match `template`.
 #' @param permit_component A character vector with one or more of the following: `PRE` (pretreatment), `CAF` (CAFO), `CSO` (CSO), `POT` (Publicly Owned Treatment Works, the default), `BIO` (Biosolids), `SWS` (Stormwater Small MS4), `SWM` (Stormwater Medium/Large MS4), `SWI` (Stormwater Industrial), `SWC` (Stormwater Construction).
 #' @param permit_status A character vector with one or more of the following: `EFF` (effective, the default), `EXP` (expired), `PND` (pending), `TRM` (terminated), `RET` (retired), `NON` (not needed), `ADC` (administratively continued).
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
@@ -21,8 +21,8 @@ download_NPDES_permits <- function(template,
                                    permit_status = "EFF",
                                    output = tempfile(fileext = ".gpkg")) {
 
-  ## check that DEM is SpatRaster
-  check_spat_ras(template)
+  ## check that DEM is SpatRaster or is SpatVector
+  check_terra_spat_obj(template)
 
   ## get bbox of the template. need lat, lons in decimal degrees
   ## create a bbox object from DEM

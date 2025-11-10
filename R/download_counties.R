@@ -3,7 +3,7 @@
 #' Shortcut function that downloads and extracts TIGER U.S. County boundaries
 #' and returns them as a terra SpatVector object.
 #'
-#' @param template A SpatRaster object.
+#' @param template A SpatRaster or SpatVector object. The extent of the returned object will match `template`.
 #' @param output A character file path specifying where the raster file should be stored. Defaults to a temporary file.
 #'
 #' @return A terra SpatVector object. If API resources are not available an invisible `NULL` is returned.
@@ -28,8 +28,8 @@ download_counties <- function(template,
     return(invisible(NULL))
   }
 
-  ## check template if a spatraster
-  check_spat_ras(template)
+  ## check that DEM is SpatRaster or is SpatVector
+  check_terra_spat_obj(template)
 
   furl <- "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Census_Counties/FeatureServer"
 
