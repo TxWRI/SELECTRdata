@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">SELECTRdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,19 +68,42 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"SELECTRdata"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://txwri.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-</div>
-<div class="section level2">
-<h2 id="mrlc-national-land-cover-dataset">MRLC National Land Cover Dataset<a class="anchor" aria-label="anchor" href="#mrlc-national-land-cover-dataset"></a>
-</h2>
+<div class="section level3">
+<h3 id="usgs-dem">USGS DEM<a class="anchor" aria-label="anchor" href="#usgs-dem"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://txwri.github.io/SELECTRdata/">SELECTRdata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'terra' was built under R version 4.3.3</span></span>
-<span><span class="co">#&gt; terra 1.8.10</span></span>
+<span><span class="co">#&gt; terra 1.8.29</span></span>
 <span></span>
-<span><span class="co">## we need a template file, this is the thomsoncreek watershed in Texas</span></span>
+<span><span class="co">## our location of interest</span></span>
+<span><span class="va">location_of_interest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"thompsoncreek.tif"</span>, package <span class="op">=</span> <span class="st">"SELECTRdata"</span><span class="op">)</span></span>
+<span><span class="va">location_of_interest</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">location_of_interest</span><span class="op">)</span></span>
+<span><span class="co">## grab the extent</span></span>
+<span><span class="va">extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html" class="external-link">ext</a></span><span class="op">(</span><span class="va">location_of_interest</span><span class="op">)</span></span>
+<span><span class="co">## create a extent or object that an extent and srs</span></span>
+<span><span class="co">## can be grabbed</span></span>
+<span><span class="va">extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/vect.html" class="external-link">vect</a></span><span class="op">(</span><span class="va">extent</span>, crs <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html" class="external-link">crs</a></span><span class="op">(</span><span class="va">location_of_interest</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## project the extent to something used by USGS Seamless data</span></span>
+<span><span class="va">extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/project.html" class="external-link">project</a></span><span class="op">(</span><span class="va">extent</span>, <span class="st">"EPSG:6579"</span><span class="op">)</span></span>
+<span><span class="co">## grab the epsg code from our extent</span></span>
+<span><span class="va">auth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/crs.html" class="external-link">crs</a></span><span class="op">(</span><span class="va">extent</span>, describe <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">auth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">auth</span><span class="op">$</span><span class="va">authority</span>, <span class="st">":"</span>, <span class="va">auth</span><span class="op">$</span><span class="va">code</span><span class="op">)</span></span>
+<span><span class="va">extent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/ext.html" class="external-link">ext</a></span><span class="op">(</span><span class="va">extent</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## download DEM</span></span>
+<span><span class="va">example_dem</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_dem.html">download_dem</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">extent</span>, srs <span class="op">=</span> <span class="va">auth</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">example_dem</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-dem-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="mrlc-national-land-cover-dataset">MRLC National Land Cover Dataset<a class="anchor" aria-label="anchor" href="#mrlc-national-land-cover-dataset"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## we need a template file, this is the thomsoncreek watershed in Texas</span></span>
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"thompsoncreek.tif"</span>, package <span class="op">=</span> <span class="st">"SELECTRdata"</span><span class="op">)</span></span>
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
 <span></span>
@@ -89,7 +112,7 @@
 <span></span>
 <span><span class="va">dem</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html" class="external-link">mask</a></span><span class="op">(</span><span class="va">dem</span>, <span class="va">wbd</span>,</span>
 <span>                   filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".tif"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## download the NLCD file cropped to the extents of the watershed</span></span>
 <span><span class="va">nlcd</span> <span class="op">&lt;-</span> <span class="fu">SELECTRdata</span><span class="fu">::</span><span class="fu"><a href="reference/download_nlcd.html">download_nlcd</a></span><span class="op">(</span>template <span class="op">=</span> <span class="va">dem</span>, </span>
 <span>                                   overwrite <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -98,17 +121,18 @@
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">nlcd</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+</div>
 <div class="section level3">
 <h3 id="fema-us-buildings">FEMA US Buildings<a class="anchor" aria-label="anchor" href="#fema-us-buildings"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">buildings</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_buildings.html">download_buildings</a></span><span class="op">(</span>template <span class="op">=</span> <span class="va">dem</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'jsonify':</span></span>
 <span><span class="co">#&gt;   method     from    </span></span>
 <span><span class="co">#&gt;   print.json jsonlite</span></span>
-<span><span class="co">#&gt; Iterating ■■■■■ 12% | ETA: 19sIterating ■■■■■■■■■ 25% | ETA: 11sIterating</span></span>
-<span><span class="co">#&gt; ■■■■■■■■■■■■■■■■ 50% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA:</span></span>
-<span><span class="co">#&gt; 2sIterating ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 1s</span></span>
+<span><span class="co">#&gt; Iterating ■■■■■ 12% | ETA: 8sIterating ■■■■■■■■■ 25% | ETA: 6sIterating</span></span>
+<span><span class="co">#&gt; ■■■■■■■■■■■■ 38% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■ 62% | ETA: 2sIterating</span></span>
+<span><span class="co">#&gt; ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 0s</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">buildings</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
@@ -117,7 +141,7 @@
 <h3 id="us-census-blocks">U.S. Census Blocks<a class="anchor" aria-label="anchor" href="#us-census-blocks"></a>
 </h3>
 <p>Includes housing unit and population data.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cen_blocks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_census_blocks.html">download_census_blocks</a></span><span class="op">(</span><span class="va">dem</span>, <span class="st">"2020"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cen_blocks</span>, <span class="st">"P0010001"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span>, col <span class="op">=</span> <span class="st">"white"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -127,7 +151,7 @@
 <h3 id="tiger-counties">TIGER Counties<a class="anchor" aria-label="anchor" href="#tiger-counties"></a>
 </h3>
 <p>County boundaries cropped to coastlines.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_counties.html">download_counties</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">counties</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -138,7 +162,7 @@
 <h2 id="urbanized-areas">Urbanized Areas<a class="anchor" aria-label="anchor" href="#urbanized-areas"></a>
 </h2>
 <p>U.S. Census designated urban areas from the 2020 U.S. Census.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ua</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_urban_areas.html">download_urban_areas</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ua</span>, col <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -147,7 +171,7 @@
 <div class="section level2">
 <h2 id="npdes-permits">NPDES Permits<a class="anchor" aria-label="anchor" href="#npdes-permits"></a>
 </h2>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">npdes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_NPDES_permits.html">download_NPDES_permits</a></span><span class="op">(</span><span class="va">dem</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Query returned 3 results!</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wbd</span><span class="op">)</span></span>
@@ -197,7 +221,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

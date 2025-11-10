@@ -1,0 +1,147 @@
+# SELECTRdata
+
+SELECTRdata provides convenience functions for downloading raster and
+tabular data used in the Spatially Explicit Load Enrichment Calculation
+Tool (SELECT). By providing a SpatRaster object of the target watershed,
+functions are available to download cropped:
+
+- [National Land Cover Dataset](https://www.mrlc.gov/)
+- [FEMA USA
+  Structures](https://disasters.geoplatform.gov/USA_Structures/)
+- [Census
+  Blocks](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html)
+- [TIGER County
+  Boundaries](https://tigerweb.geo.census.gov/tigerwebmain/TIGERweb_restmapservice.html)
+- [USDA Agricultural Census](https://www.nass.usda.gov/)
+- [EPA NPDES Permits](https://echo.epa.gov/)
+- [U.S. Census Bureau Urbanized
+  Areas](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/urban-rural.html)
+
+## Installation
+
+You can install the development version of SELECTRdata like so:
+
+``` r
+install.packages("SELECTRdata", repos = c("https://txwri.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+## Examples
+
+### USGS DEM
+
+``` r
+library(SELECTRdata)
+library(terra)
+#> Warning: package 'terra' was built under R version 4.3.3
+#> terra 1.8.29
+
+## our location of interest
+location_of_interest <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+location_of_interest <- terra::rast(location_of_interest)
+## grab the extent
+extent <- ext(location_of_interest)
+## create a extent or object that an extent and srs
+## can be grabbed
+extent <- vect(extent, crs = crs(location_of_interest))
+## project the extent to something used by USGS Seamless data
+extent <- project(extent, "EPSG:6579")
+## grab the epsg code from our extent
+auth <- crs(extent, describe = TRUE)
+auth <- paste0(auth$authority, ":", auth$code)
+extent <- ext(extent)
+
+## download DEM
+example_dem <- download_dem(x = extent, srs = auth)
+plot(example_dem)
+```
+
+![](reference/figures/README-dem-1.png)
+
+### MRLC National Land Cover Dataset
+
+``` r
+## we need a template file, this is the thomsoncreek watershed in Texas
+dem <- system.file("extdata", "thompsoncreek.tif", package = "SELECTRdata")
+dem <- terra::rast(dem)
+
+gpkg <- system.file("extdata", "thompsoncreek.gpkg", package = "SELECTRdata")
+wbd <- terra::vect(gpkg, layer = "wbd")
+
+dem <- terra::mask(dem, wbd,
+                   filename = tempfile(fileext = ".tif"))
+```
+
+``` r
+## download the NLCD file cropped to the extents of the watershed
+nlcd <- SELECTRdata::download_nlcd(template = dem, 
+                                   overwrite = TRUE,
+                                   progress = 1)
+#> |---------|---------|---------|---------|=========================================                                          
+plot(nlcd)
+plot(wbd, add = TRUE)
+```
+
+![](reference/figures/README-unnamed-chunk-2-1.png)
+
+### FEMA US Buildings
+
+``` r
+buildings <- download_buildings(template = dem)
+#> Registered S3 method overwritten by 'jsonify':
+#>   method     from    
+#>   print.json jsonlite
+#> Iterating ■■■■■ 12% | ETA: 8sIterating ■■■■■■■■■ 25% | ETA: 6sIterating
+#> ■■■■■■■■■■■■ 38% | ETA: 4sIterating ■■■■■■■■■■■■■■■■■■■■ 62% | ETA: 2sIterating
+#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88% | ETA: 0s
+plot(buildings)
+plot(wbd, add = TRUE)
+```
+
+![](reference/figures/README-unnamed-chunk-3-1.png)
+
+### U.S. Census Blocks
+
+Includes housing unit and population data.
+
+``` r
+cen_blocks <- download_census_blocks(dem, "2020")
+plot(cen_blocks, "P0010001")
+plot(wbd, col = "white", alpha = 0.5, add = TRUE)
+```
+
+![](reference/figures/README-unnamed-chunk-4-1.png)
+
+### TIGER Counties
+
+County boundaries cropped to coastlines.
+
+``` r
+counties <- download_counties(dem)
+plot(counties)
+plot(wbd, add = TRUE)
+```
+
+![](reference/figures/README-unnamed-chunk-5-1.png)
+
+## Urbanized Areas
+
+U.S. Census designated urban areas from the 2020 U.S. Census.
+
+``` r
+ua <- download_urban_areas(dem)
+plot(wbd)
+plot(ua, col = "red", alpha = 0.5, add = TRUE)
+```
+
+![](reference/figures/README-unnamed-chunk-6-1.png)
+
+## NPDES Permits
+
+``` r
+npdes <- download_NPDES_permits(dem)
+#> ℹ Query returned 3 results!
+plot(wbd)
+plot(npdes, add = TRUE)
+```
+
+![](reference/figures/README-unnamed-chunk-7-1.png)
