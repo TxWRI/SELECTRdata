@@ -49,5 +49,7 @@ buildings <- download_buildings(template = dem)
 #> Registered S3 method overwritten by 'jsonify':
 #>   method     from    
 #>   print.json jsonlite
+#> [working] (0 + 0) -> 6 -> 2 | ■■■■■■■■■                         25%
+#> [working] (0 + 0) -> 0 -> 8 | ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100%
 # }
 ```

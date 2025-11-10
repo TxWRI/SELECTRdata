@@ -76,7 +76,7 @@ download_nlcd(template = dem, year = "2024")
 #> resolution  : 30, 30  (x, y)
 #> extent      : -46575, -35265, 834735, 855585  (xmin, xmax, ymin, ymax)
 #> coord. ref. : NAD83 / Conus Albers (EPSG:5070) 
-#> source      : file21714c164e39.tiff 
+#> source      : file20bc1e1e0a8e.tiff 
 #> color table : 1 
 #> categories  : Label 
 #> name        :                        Label 
