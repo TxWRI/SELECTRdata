@@ -7,7 +7,7 @@
 download_counties(template, output = tempfile(fileext = ".gpkg"))
 }
 \arguments{
-\item{template}{A SpatRaster object.}
+\item{template}{A SpatRaster or SpatVector object. The extent of the returned object will match \code{template}.}
 
 \item{output}{A character file path specifying where the raster file should be stored. Defaults to a temporary file.}
 }

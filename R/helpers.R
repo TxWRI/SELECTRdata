@@ -49,6 +49,16 @@ check_spat_ras <- function(x,
   }
 }
 
+
+check_terra_spat_obj <- function(x,
+                           arg = rlang::caller_arg(x),
+                           call = rlang::caller_env()) {
+  if(!inherits(x, c("SpatRaster", "SpatRasterCollection", "SpatVector"))) {
+    cli::cli_abort("The object supplied to {.arg {arg}} must be a {.cls SpatRaster}, {.cls SpatRasterCollection}, or {.cls SpatVector} object. Try loading the raster with {.code terra::rast()} or {.code terra::vect()}.",
+                   call = call)
+  }
+}
+
 check_string <- function(x,
                          arg = rlang::caller_arg(x),
                          call = rlang::caller_env()) {

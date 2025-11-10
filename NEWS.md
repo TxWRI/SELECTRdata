@@ -1,3 +1,9 @@
+# SELECTRdata 0.1.3 (2025-11-04)
+
+## New Features
+
+  *  template arguments accept SpatVector or SpatRaster objects.
+
 # SELECTRdata 0.1.2 (2025-10-22)
 
 ## New Features

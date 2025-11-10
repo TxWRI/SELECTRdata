@@ -5,7 +5,7 @@
 #'
 #' Downloads and writes an NLCD SpatRaster to file with extents defined by `template`. This function downloads the annualized NLCD data products. See [https://www.mrlc.gov/data/project/annual-nlcd](https://www.mrlc.gov/data/project/annual-nlcd) for more information.
 #'
-#' @param template A SpatRaster object defining the spatial extent of the returned NLCD raster.
+#' @param template A SpatRaster or SpatVector object. The extent of the returned object will match `template`.
 #' @param year character, expects a value between `1986:2024`.
 #' @param dataset Character. Expects `c("LndCov","LndChg","LndCnf","FctImp","ImpDsc","SpcChg")`. Only `"LndCov"` is supported at this time.
 #' @param landmass  Depreciated. Character, one of: `c("CU", "AK", "HI")`.
@@ -39,8 +39,8 @@ download_nlcd       <- function(template,
     return(invisible(NULL))
   }
 
-  ## check template if a spatraster
-  check_spat_ras(template)
+  ## check that DEM is SpatRaster or is SpatVector
+  check_terra_spat_obj(template)
 
   ## need to check year, dataset, and landmass are valid values
   ## check landmass
@@ -121,7 +121,7 @@ download_nlcd       <- function(template,
                    wrap = TRUE)
     template_ext <- terra::project(template_ext,
                                    from = template_srs,
-                                   to = nlcd_epsg)
+                                   to = paste0("epsg:",nlcd_epsg))
 
   }
 

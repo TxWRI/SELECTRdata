@@ -3,7 +3,7 @@
 #' Downloads building footprints and attribute data from FEMA's
 #' USA Structures dataset (https://fema.maps.arcgis.com/home/item.html?id=0ec8512ad21e4bb987d7e848d14e7e24#overview).
 #'
-#' @param template A SpatRaster object. The extent of the returned object will match `template`.
+#' @param template A SpatRaster or SpatVector object. The extent of the returned object will match `template`.
 #' @param return A character object, either `SpatVector` or `sf`. Defaults to `SpatVector`.
 #' @param output A character file path specifying where the `SpatVector` file should be written. Defaults to a temporary file.
 #'
@@ -28,8 +28,8 @@ download_buildings <- function(template,
     return(invisible(NULL))
   }
 
-  ## check that DEM is SpatRaster
-  check_spat_ras(template)
+  ## check that DEM is SpatRaster or is SpatVector
+  check_terra_spat_obj(template)
 
   ## check that return is one of "SpatVector" or "sf"
   check_string(return)

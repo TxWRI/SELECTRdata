@@ -2,7 +2,7 @@
 #'
 #' Downloads a U.S. Census designated urban areas intersecting the spatial extent of the template SpatRaster.
 #'
-#' @param template A SpatRaster object.
+#' @param template A SpatRaster or SpatVector object.
 #' @param page_size a numeric value passed to `arcgislayers::arcselect()`. Defaults to NULL. Useful when the requests returns a 500 error code.
 #' @param output A character file path specifying where the `SpatVector` output object should be written. Defaults to a temporary file.
 #'
@@ -29,8 +29,8 @@ download_urban_areas <- function(template,
   if (!isTRUE(check_connectivity("services.arcgis.com"))) {
     return(invisible(NULL))
   }
-  ## check template if a spatraster
-  check_spat_ras(template)
+  ## check that DEM is SpatRaster or is SpatVector
+  check_terra_spat_obj(template)
 
   furl <- "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Census_Urban_Areas/FeatureServer"
 

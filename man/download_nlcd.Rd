@@ -16,7 +16,7 @@ download_nlcd(
 )
 }
 \arguments{
-\item{template}{A SpatRaster object defining the spatial extent of the returned NLCD raster.}
+\item{template}{A SpatRaster or SpatVector object. The extent of the returned object will match \code{template}.}
 
 \item{year}{character, expects a value between \code{1986:2024}.}
 

@@ -11,7 +11,7 @@ download_urban_areas(
 )
 }
 \arguments{
-\item{template}{A SpatRaster object.}
+\item{template}{A SpatRaster or SpatVector object.}
 
 \item{page_size}{a numeric value passed to \code{arcgislayers::arcselect()}. Defaults to NULL. Useful when the requests returns a 500 error code.}
 
